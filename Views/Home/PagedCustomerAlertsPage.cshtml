@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "Paged CustomerAlerts Page";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h4>Paged CustomerAlerts Listing </h4><br />
+
+<div class="panel panel-default" style="margin-top:10px;">
+
+    <div class="modalspinner" style="display: none">
+        <div class="centerspinner">
+            <img alt="" src="/loaders/spinner.gif" />
+            Please wait ....
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div id="pageselector">
+                <input type="hidden" id="txtTotalPgs" value="@TempData["totalnumberofpages"]" />
+                <div class="form-group">
+                    <label>Enter Page Number</label>
+                    <input style="width:150px"class="form-control floating numericsonly" id="pageNo" min="1"  /><label class="control-label">out of  @TempData["totalnumberofpages"] pages</label>
+                </div>
+                <div class="form-group">                
+                  <input class="btn btn-primary pagerButton" type="submit" value="Load Data" />
+                </div>
+            </div>           
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong> Customer Alerts</strong>
+                    <span id="feedbackMsg" style="display: none"></span><br />
+                        <div class="form-body">
+                            <div class="table-container scroll">
+                                 <table class="table table-striped table-bordered tbl_datatable responsive" id="tbl_customer_alerts_paged">
+                                    <thead>
+                                        <tr>
+                                            <th> Alert ID </th>
+                                            <th> Customer </th>
+                                            <th> Scheme </th>
+                                            <th> Member Name </th>
+                                            <th> Family Code </th>
+                                            <th> Member Number </th>
+                                            <th> Benefit </th>
+                                            <th> Pool No </th>
+                                            <th> Allocation </th>
+                                            <th> Expenditure  </th>
+                                            <th> Balance </th>
+                                            <th> PercentageExpenditure </th>
+                                            <th> PercentageBalance </th>
+                                            <th> Insert Date </th>
+                                            <th> Benefit Shared </th>
+                                            <th> Mem Type </th>
+                                            <th> Data Source </th> 
+                                            <th> Policy Id</th>
+                                            <th> Customer Id </th> 
+                                            <th> Country Code</th> 
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                     <tfoot> </tfoot>
+                                 </table>
+                                 <div id="updatePanel"></div>
+                             </div>
+                         </div>
+                  </div>
+              </div>
+         </div>
+     </div>
+</div>
+

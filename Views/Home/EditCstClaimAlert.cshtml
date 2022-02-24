@@ -1,0 +1,72 @@
+﻿@model IEnumerable<NotificationUI.Models.CustomerClaimAlert>
+
+@{
+    ViewData["Title"] = "EditCstClaimAlert";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<p> <a asp-action="Create">Create New </a> </p>
+
+<div class="portlet light portlet-fit portlet-datatable bordered">
+<div class="portlet-title">
+    <div class="caption">
+        <i class="icon-settings font-green"></i>
+        <span class="caption-subject font-green sbold uppercase">Edit Claim Alert</span>
+    </div>
+</div>
+<br />
+     
+<div class="portlet-body">
+  <div class="form-body">
+      <div class="table-container">
+           <form  class="form_edit_claim_alert" >
+                <div class="scroll">
+                   <table class="table table-responsive" id="tbl_claim_alerts">
+                        <thead>
+                            <tr>
+                                <th> ID </th>
+                                <th> Customer ID </th>
+                                <th> Alert Max Amount </th>
+                                <th> Email Address</th>
+                                <th> Country Code </th>
+                                <th> Maximum Claim Amount </th>                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        <input class="form-control floating" name="id" type="text" readonly asp-for=@item.id value=@item.id />
+                                    </td>
+                                    <td>
+                                        <input class="form-control floating" name="customer_id" type="text" readonly asp-for=@item.customer_id value=@item.customer_id />
+                                    </td>
+                                    <td>
+                                        <input class="form-control floating numericsonly" name="alert_max_amount" type="number" asp-for=@item.alert_max_amount value=@item.alert_max_amount />
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control floating" name="email_address" rows="10" cols="50" type="text" asp-for=@item.email_address > @item.email_address </textarea>
+                                    </td>
+
+                                    <td>
+                                         <input class="form-control floating" readonly name="country_code" type="text" asp-for=@item.country_code value=@item.country_code />
+                                    </td>
+                                    <td>
+                                        <input class="form-control floating numericsonly" name="alert_max_claim_amount" type="number" asp-for=@item.alert_max_claim_amount value=@item.alert_max_claim_amount />
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td>                                                                       
+                                         <input class="form-control btn btn-primary btnEditclaimalert" value="Edit Submit" type="submit" />                                  
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                 </div>
+            </form>
+       </div>
+   </div>
+</div>
+
+</div>

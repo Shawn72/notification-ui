@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Notification UI</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" >
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/line-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/morris/morris.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/customprofile.css"/>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/customstylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/sweetalert/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="~/assets/customassets/sessions/timeout-dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/loadercss.css"/>
+    <link rel="stylesheet" type="text/css" href="~/css/customstyle.css"/>
+    <link rel="stylesheet" type="text/css" href="~/css/~/css/paging.css"/>
+
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="header">
+        <div class="header-left">
+            <a href="/Home/Index" class="logo"> <img src="~/images/logo.jpg" width="85" height="40" alt=""> </a>
+        </div>
+        <a id="toggle_btn" href="javascript:void(0);"><i class="la la-bars"></i></a>
+        <div class="page-title-box pull-left">
+            <h3>Notification UI</h3>
+        </div>
+        <a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
+       
+        <ul class="nav navbar-nav navbar-right user-menu pull-right">
+           
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="dropdown">
+                <a href="/Home/Profile" class="dropdown-toggle user-link" data-toggle="dropdown" title="user">
+                    <span class="user-img"><img class="img-circle"  width="40" alt="avatar" id="avatar" onerror="this.onerror = null; this.src = '/images/avatar6.png';" src="">
+                        <span class="status online"></span></span>
+                    <span>@ViewBag.Name</span>
+                    <i class="caret"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li> <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="ResetPassword">Reset Password</a></li>                    
+                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a> </li>
+                </ul>
+            </li>
+        }
+        else
+        {                
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+            </li>             
+        }
+
+        </ul>
+
+        <div class="dropdown mobile-user-menu pull-right">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="/Account/ResetPassword">Reset Password</a></li>
+                <li><a href="/Home/CheckLogout">Logout</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+   <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="active"><a  class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="glyphicon glyphicon-home"></i> <span>Dashboard</span></a></li>
+                                       
+                    <li class="submenu">
+                    <a href="#"><i class="fa fa-folder fa-fw"></i> <span> Customer Alerts</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">                       
+                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewCustomerAlertSetting"><span> Customer Alert Setting</span> </a> </li>
+                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewCustomerClaimAlert"><span> Customer Claim Alert</span> </a> </li>
+                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewFullUtilShareSetting"><span> Full Util Share </span> </a> </li>                   
+                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewStatementConfig"><span> Individual Statement Configs </span> </a> </li>
+                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewSentStatement"><span> Sent Statements </span> </a> </li>
+                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewSchemeUtilAlert"><span> Scheme Util Alerts </span> </a> </li>
+                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PagedCustomerAlertsPage"><span>Paged Customer Alerts  </span> </a> </li>
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div> 
+
+    <div class="page-wrapper">        
+
+        @RenderBody()
+        <footer class="main-footer ffooter">
+            <strong>Copyright &copy; @DateTime.Now.Year  - <a href="#" target="_blank">Notification UI </a>.</strong>
+        </footer>
+    </div>
+
+ </div>
+
+ <div class="sidebar-overlay" data-reff="#sidebar"></div>
+
+<script type="text/javascript" src="~/assets/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>  
+<script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="~/assets/js/jquery.slimscroll.js"></script>
+<script type="text/javascript" src="~/assets/plugins/morris/morris.min.js"></script>
+<script type="text/javascript" src="~/assets/plugins/raphael/raphael-min.js"></script>
+<script type="text/javascript" src="~/assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/assets/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="~/assets/js/jquery.slimscroll.js"></script>
+<script type="text/javascript" src="~/assets/js/select2.min.js"></script>
+<script type="text/javascript" src="~/assets/js/moment.min.js"></script>
+<script type="text/javascript" src="~/assets/js/app.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script type="text/javascript" src="~/assets/js/bootstrap-select.min.js" ></script>
+<script type="text/javascript" src="~/js/jsfunctions.js"  ></script> 
+<script type="text/javascript" src="~/js/jsvalidator.js"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

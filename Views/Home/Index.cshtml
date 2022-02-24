@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "Home page";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+<section class="content container-fluid">
+    @if (ViewBag.Result == "Success")
+    {
+        <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               @TempData["isMessage"]
+        </div>
+    }
+    else if(ViewBag.Result == "Error")
+    {
+        <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+             @TempData["isMessage"]
+        </div>
+    }
+    else
+    {
+                    
+    }
+<br />
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-lg-3">
+        <div class="dash-widget clearfix card-box">
+            <span class="dash-widget-icon"><i class="fas fa-award" aria-hidden="true"></i></span>
+            <div class="dash-widget-info">
+               @* <h3>@Session["totalSupporters"]</h3>*@
+                <a href="#"><span style="color: aliceblue">Sent Statements</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6 col-lg-3">
+        <div class="dash-widget clearfix card-box">
+            <span class="dash-widget-icon"><i class="fa fa-pencil m-r-5"></i></span>
+            <div class="dash-widget-info">
+            @*    <h3>@Session["totalCommission"]</h3>*@
+                <a href="#"><span style="color: aliceblue">Customer Alerts </span></a>
+            </div>
+        </div>
+    </div>
+
+     <div class="col-md-6 col-sm-6 col-lg-3">
+        <div class="dash-widget clearfix card-box">
+            <span class="dash-widget-icon"><i class="fa fa-trash m-r-5"></i></span>
+            <div class="dash-widget-info">
+           <a href="#"><span style="color: aliceblue">Individual Statement Configs </span></a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+   
+<div class="panel panel-default" style="margin-top:10px;">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong> Notification Reports</strong>
+                    <span id="feedbackMsg" style="display: none"></span><br />
+                        <div class="form-body">
+                            <div class="table-container">
+                                
+                            </div>
+                       </div>    
+             </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+

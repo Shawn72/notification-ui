@@ -1,0 +1,103 @@
+﻿@model IEnumerable<NotificationUI.Models.SchemeUtilAlertModel>
+
+@{
+    ViewData["Title"] = "EditSchemeUtilAlert";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h4>Edit Scheme Util Alert</h4>
+
+<p> <a asp-action="Create">Create New</a></p>
+
+<div class="portlet light portlet-fit portlet-datatable bordered">
+
+    @if (ViewBag.Result == "Success")
+    {
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    @TempData["isMessage"]
+        </div>
+    }
+    else if(ViewBag.Result == "Error")
+    {
+        <div class="alert alert-danger alert-dismissible">
+             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @TempData["isMessage"]
+        </div>
+    }
+    else
+    {  }
+    <br />
+
+ <div id="feedbackMsg" style="display:none"></div>
+<div class="portlet-title">
+    <div class="caption">
+        <i class="icon-settings font-green"></i>
+        <span class="caption-subject font-green sbold uppercase"> Edit Scheme Util Alert</span>
+    </div>
+</div>
+<br />
+     
+<div class="portlet-body">
+  <div class="form-body">
+      <div class="table-container">
+           <form  class="form_edit_util_alert" >
+                <div class="scroll">
+                       <table class="table table-responsive" id="tbl_util_alerts">
+                            <thead>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Customer </th>
+                                    <th> Policy Id </th>
+                                    <th> Scheme </th>
+                                    <th> Allocation </th>
+                                    <th> Expenditure </th>                                    
+                                    <th> Benefit Type </th>
+                                    <th> Data Source </th>                                    
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model) {
+                                    <tr>
+                                        <td>
+                                            <input class="form-control floating" type="text"  name="id" readonly asp-for=@item.id value=@item.id />
+                                        </td>
+                                        <td>
+                                           <input class="form-control floating" type="text" readonly asp-for=@item.Customer value=@item.Customer />
+                                        </td>
+                                        <td>
+                                            <input class="form-control floating" type="text" readonly asp-for=@item.policy_id value=@item.policy_id />
+                                        </td>
+                                        <td>
+                                            <input class="form-control floating" type="text" readonly asp-for=@item.Scheme value=@item.Scheme />
+                                        </td>
+                                        <td>
+                                            <input class="form-control floating" type="text"  name="Allocation"  asp-for=@item.Allocation value=@item.Allocation />
+                                        </td>
+                                        <td>
+                                            <input class="form-control floating" type="text"  name="Expenditure" readonly asp-for=@item.Expenditure value=@item.Expenditure />
+                                        </td>                                         
+                                        <td>
+                                            <input class="form-control floating" type="text" name="benefit_type" asp-for=@item.benefit_type value=@item.benefit_type />
+                                        </td>
+       
+                                        <td>
+                                            <input class="form-control floating" type="text" readonly asp-for=@item.data_source value=@item.data_source />
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td>                                                                       
+                                            <input class="form-control btn btn-primary btnEditutilalert" value="Edit Submit" type="submit" />                                  
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                       </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+ </div>
+                               

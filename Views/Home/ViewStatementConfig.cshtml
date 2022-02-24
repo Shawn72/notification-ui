@@ -1,0 +1,173 @@
+﻿@using System.Globalization
+@model IEnumerable<NotificationUI.Models.IndividualStatementConfig>
+
+@{
+    ViewData["Title"] = "ViewStatementConfig";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    CultureInfo culture = new CultureInfo("en-US");
+}
+
+<p> <a asp-action="Create">Create New</a></p>
+<div class="panel panel-default" style="margin-top:10px;">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong> Individual Statement Configs</strong>
+                    <span id="feedbackMsg" style="display: none"></span><br />
+                        <div class="form-body">
+                            <div class="table-container scroll">
+                                <table class="table table-striped table-bordered tbl_datatable responsive nowrap" id="tbl_statement_config">
+                                      <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.id)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.customer_name)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.data_source)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.country_code)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.customer_logo)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.customer_logo2)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.pol_id)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.main_benefit)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.family_benefit)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.insert_date)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.policy_name)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.customer_id)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.send_frequeny)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.last_send_date)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.password_type)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.split_password_from_statement)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Include_image_banner)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Image_name)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.report_template_file)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.email_blast_enabled)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.zero_allocation_excempt)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.mail_domain)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                      </thead>
+                                    <tbody>
+                                        @foreach (var item in Model) {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.customer_name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.data_source)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.country_code)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.customer_logo)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.customer_logo2)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.pol_id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.main_benefit)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.family_benefit)
+                                                </td>
+                                                <td>
+                                                    @DateTime.Parse(item.insert_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss")
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.policy_name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.customer_id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.send_frequeny)
+                                                </td>
+                                                <td>
+                                                    @DateTime.Parse(item.last_send_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss")
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.password_type)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.split_password_from_statement)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Include_image_banner)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Image_name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.report_template_file)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.email_blast_enabled)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.zero_allocation_excempt)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.mail_domain)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "EditStatementConfig", new {  id=item.id  })                                                        
+                                                </td>
+                                            </tr>
+                                        }       
+                                    </tbody>
+                                 </table>
+                              </div>
+                         </div>
+                   </div>
+              </div>
+         </div>
+    </div>
+</div>

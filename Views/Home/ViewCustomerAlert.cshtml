@@ -1,0 +1,191 @@
+﻿@using System.Globalization
+@model IEnumerable<NotificationUI.Models.CustomerAlertModel>
+
+@{
+    ViewData["Title"] = "ViewCustomerAlert";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    CultureInfo culture = new CultureInfo("en-US");
+}
+
+<p> <a asp-action="Create">Create New</a></p>
+
+<div class="panel panel-default" style="margin-top:10px;">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong> Customer Alerts</strong>
+                    <span id="feedbackMsg" style="display: none"></span><br />
+                        <div class="form-body">
+                            <div class="table-container scroll">
+                                 <table class="table table-striped table-bordered tbl_datatable responsive" id="tbl_customer_alerts">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.AlertID)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Customer)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Scheme)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.FamilyCode)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberNumber)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Benefit)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PoolNr)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Allocation)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Expenditure)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Balance)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PercentageExpenditure)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PercentageBalance)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.insert_date)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.ben_shared)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.memType)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.data_source)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.policy_id)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.customer_id)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.other_number)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.scheme_start_date)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.scheme_end_date)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.country_code)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.cat_desc)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model) {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.AlertID)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Customer)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Scheme)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.MemberName)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.FamilyCode)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.MemberNumber)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Benefit)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.PoolNr)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Allocation)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Expenditure)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Balance)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.PercentageExpenditure)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.PercentageBalance)
+                                                    </td>
+                                                    <td>
+                                            @*           @DateTime.Parse(item.insert_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss")*@
+                                                     @Html.DisplayFor(modelItem => item.insert_date)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ben_shared)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.memType)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.data_source)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.policy_id)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.customer_id)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.other_number)
+                                                    </td>
+                                                    <td>
+                                                     @*  @DateTime.Parse(item.scheme_start_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss")*@
+                                                   @Html.DisplayFor(modelItem => item.scheme_start_date)   
+                                                 </td>
+                                                    <td>
+                                                        @* @DateTime.Parse(item.scheme_end_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss")*@
+                                                        @Html.DisplayFor(modelItem => item.scheme_end_date) 
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.country_code)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.cat_desc)
+                                                    </td>
+                                                    <td>
+                                                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                                    </td>
+                                                </tr>
+                                        }
+                                    </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                  </div>
+              </div>
+         </div>
+     </div>
+</div>

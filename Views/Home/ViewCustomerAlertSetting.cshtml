@@ -1,0 +1,203 @@
+﻿@using System.Globalization
+@model IEnumerable<NotificationUI.Models.CustomerAlertSetting>
+
+@{
+    ViewData["Title"] = "ViewCustomerAlertSetting";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    CultureInfo culture = new CultureInfo("en-US");
+}
+
+<section class="content container-fluid">
+
+<h4>Customer Alert Setting</h4>
+
+<p><a asp-action="Create">Create New</a></p>
+
+<div class="panel panel-default" style="margin-top:10px;">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong> Customer Alert Setting</strong>
+                    <span id="feedbackMsg" style="display: none"></span><br />
+                        <div class="form-body">
+                                <div class="table-container scroll">
+                                     <table class="table table-striped table-bordered tbl_datatable responsive" id="tbl_cstalert_setting">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.id)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.customer_id)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.customer_name)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.data_source)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.percentage_alert)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.email_address)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.pol_id)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.pool_number)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.country_code)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.inpatient_alert)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.inpatient_weekly_alert)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.customer_code)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.member_perc_util)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.scheme_util_index)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.ip_alert_email)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.full_member_util)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.full_member_util_shared)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.full_member_util_email)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.scheme_expiry_alert)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.scheme_expiry_alert_email)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.age_cut_off_alert)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.age_cut_off_email)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.split_report_into_multiple_sheets)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.perc_report_frequency)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.include_cat_desc)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.include_util_summary)
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach (var item in Model) {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.customer_id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.customer_name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.data_source)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.percentage_alert)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.email_address)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.pol_id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.pool_number)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.country_code)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.inpatient_alert)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.inpatient_weekly_alert)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.customer_code)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.member_perc_util)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.scheme_util_index)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ip_alert_email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.full_member_util)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.full_member_util_shared)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.full_member_util_email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.scheme_expiry_alert)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.scheme_expiry_alert_email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.age_cut_off_alert)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.age_cut_off_email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.split_report_into_multiple_sheets)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.perc_report_frequency)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.include_cat_desc)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.include_util_summary)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "EditCstAlertSetting", new {  id =item.id  }) 
+                                                </td>
+                                            </tr>
+                                           }       
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                 </div>
+              </div>
+           </div>
+     </div>
+</div>
+</section>

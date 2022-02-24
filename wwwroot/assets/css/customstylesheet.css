@@ -1,0 +1,18 @@
+﻿.ffooter {
+    padding-left: 250px;
+}
+@media screen and  (max-width: 348px) {
+    .ffooter { padding-left: 74px; }
+}
+@media screen and  (max-width: 768px) {
+    .ffooter { padding-left: 160px; }
+}
+
+@media screen and  (max-width: 992px) {
+    .ffooter { padding-left: 2500px;}
+}
+
+@media screen and  (min-width: 1200px) {
+    .ffooter { padding-left: 250px;}
+}
+

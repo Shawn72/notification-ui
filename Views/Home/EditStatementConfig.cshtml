@@ -1,0 +1,138 @@
+﻿@model IEnumerable<NotificationUI.Models.IndividualStatementConfig>
+
+@{
+    ViewData["Title"] = "EditStatementConfig";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="portlet light portlet-fit portlet-datatable bordered">
+
+<div class="modalspinner" style="display: none">
+    <div class="centerspinner">
+        <img alt="" src="/loaders/spinner.gif" />
+        Please wait ....
+    </div>
+</div>
+     
+<div class="portlet light portlet-fit portlet-datatable bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-settings font-green"></i>
+            <span class="caption-subject font-green sbold uppercase">EDIT INDIVIDUAL STATEMENT CONFIG</span>
+        </div>
+    </div>
+    <br />
+     
+    <div class="portlet-body">
+        <div class="form-body">  
+            <div class="table-container vert">  
+               <span id="feedbackMsg" style="display: none"></span><br /> 
+               @foreach (var item in Model) {
+                <form class="form_edit_indvd_stat_config">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">ID</label>
+                        <input name ="id" value="@item.id" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Customer Name</label>
+                        <input id ="txtCustName" value="@item.customer_name" name="customer_name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Data Source</label>
+                        <input id="txtDatasource" value="@item.data_source" name="data_source" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Country Code</label>
+                        <input id="txtCountrycode" value="@item.country_code" name="country_code" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Customer Logo</label>
+                        <input id="txtCustomerlogo" value="@item.customer_logo" name="customer_logo" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"> Customer Logo 2</label>
+                        <input id="txtCustLogo" value="@item.customer_logo2" name="customer_logo2" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Pol Id</label>
+                        <input id="txtPolId" value="@item.pol_id" name="pol_id" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Main Benefit</label>
+                        <input id="txtMainbenefit" value="@item.main_benefit" name="main_benefit" class="form-control numericsonly" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"> Family Benefit</label>
+                        <input id="txtFambenefit" value="@item.family_benefit"name="family_benefit" class="form-control numericsonly" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Insert Date</label>
+                        <input name="insert_date" value="@item.insert_date" readonly class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Policy Name</label>
+                        <input id="txtPolicyName" value="@item.policy_name" name="policy_name" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Customer ID</label>
+                        <input id="customer_id" value="@item.customer_id" name="customer_id" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Send Frequency</label>
+                        <input id="txtSendFreq" value="@item.send_frequeny" name="send_frequeny" class="form-control" />
+                    </div>               
+                </div>
+                <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Last Send Date</label>
+                        <input id="txtlastsenddate" value="@item.last_send_date" name="last_send_date" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Password Type</label>
+                        <input id="txtPasswdtype" value="@item.password_type" name="password_type" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Split Password From Statement</label>
+                        <input id="txtSplitPasswd" value="@item.split_password_from_statement" name="split_password_from_statement" class="form-control numericsonly" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Include Image Banner</label>
+                        <input id="txtInclbannerImg" value="@item.Include_image_banner" name="Include_image_banner" class="form-control numericsonly" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Image Name</label>
+                        <input id="txtImgname" value="@item.Image_name" name="Image_name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Report Template File</label>
+                        <input id="txtRpttempFile" value="@item.report_template_file" name="report_template_file" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Enable Email Blast</label>
+                        <input id="txtEnablEmblast" value="@item.email_blast_enabled" name="email_blast_enabled" class="form-control numericsonly" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"> Zero Allocation Excempt</label>
+                        <input id="txtZeroallocExcempt" value="@item.zero_allocation_excempt" name="zero_allocation_excempt" class="form-control numericsonly" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Mail Domain</label>
+                        <input id="txtMaildomain" value="@item.mail_domain" name="mail_domain" class="form-control numericsonly" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Edit Submit" class="btn btn-primary pull-left btnEditIndStatConfig" />
+                         <a class="btn btn-primary pull-right" asp-controller="Home" asp-action="ViewStatementConfig">  Back </a>
+                    </div>
+                </div>               
+            </form>
+            }
+        </div>
+      </div>
+    </div>
+   </div>
+</div>
+  
+
+

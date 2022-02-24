@@ -1,0 +1,151 @@
+﻿@model IEnumerable<NotificationUI.Models.CustomerAlertSetting>
+
+@{
+    ViewData["Title"] = "EditCstAlertSetting";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="portlet light portlet-fit portlet-datatable bordered">
+
+<div class="modalspinner" style="display: none">
+    <div class="centerspinner">
+        <img alt="" src="/loaders/spinner.gif" />
+        Please wait ....
+    </div>
+</div>
+     
+<div class="portlet light portlet-fit portlet-datatable bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-settings font-green"></i>
+            <span class="caption-subject font-green sbold uppercase">EDIT CUSTOMER ALERT SETTING</span>
+        </div>
+    </div>
+    <br />
+     
+    <div class="portlet-body">
+        <div class="form-body">  
+            <div class="table-container vert">  
+                <span id="feedbackMsg" style="display: none"></span><br /> 
+               @foreach (var item in Model) {
+                <form class="form_edit_cst_alert_setting">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">ID</label>
+                            <input name="id" value="@item.id" class="form-control" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Customer ID</label>
+                            <input namer="customer_id" class="form-control" value="@item.customer_id" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Customer Name</label>
+                            <input name="customer_name" class="form-control" value="@item.customer_name" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Data Source</label>
+                            <input name="data_source" class="form-control" readonly value="@item.data_source" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Percentage Alert</label>
+                            <input name="percentage_alert" class="form-control numericsonly" value="@item.percentage_alert" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email Address</label>
+                             <textarea class="form-control floating" name="email_address" rows="5" cols="50" type="text" asp-for=@item.email_address >@item.email_address</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label"> Pol Id</label>
+                            <input id="txtPolId" name="pol_id" class="form-control" value="@item.pol_id" />
+                        </div>    
+                          <div class="form-group">
+                            <label class="control-label">Pool Number</label>
+                            <input id="poolNo" name="pool_number" class="form-control" value="@item.pool_number" />
+                        </div>
+                                                            
+                    </div>
+                    <div class="col-md-4">
+                       
+                         <div class="form-group">
+                            <label  class="control-label">Country Code</label>
+                            <input name="country_code" class="form-control" value="@item.country_code"/>
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label"> Inpatient Alert</label>
+                            <input id="inPAlert" name="inpatient_alert" class="form-control numericsonly" value="@item.inpatient_alert" />
+                        </div> 
+                        <div class="form-group">
+                            <label  class="control-label">Inpatient Weekly Alert</label>
+                            <input name="inpatient_weekly_alert" class="form-control numericsonly" value="@item.inpatient_weekly_alert" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Customer Code</label>
+                            <input id="cstCode" name="customer_code" class="form-control" value="@item.customer_code" />
+                        </div>
+                            <div class="form-group">
+                            <label  class="control-label">Member Perc Util</label>
+                            <input name="member_perc_util" class="form-control numericsonly" value="@item.member_perc_util" />
+                        </div> 
+                         <div class="form-group">
+                            <label class="control-label">Scheme Util Index</label>
+                            <input name="scheme_util_index" class="form-control numericsonly" value="@item.scheme_util_index" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Ip Alert Email</label>
+                            <input id="txtIpAlertEmail" name="ip_alert_email" class="form-control"  value="@item.ip_alert_email"/>
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label"> Full Member Util</label>
+                            <input id="txtfullmbralert" name="full_member_util" class="form-control" value="@item.full_member_util" />
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-4">   
+                         <div class="form-group">
+                            <label  class="control-label">Full Member Util Shared</label>
+                            <input name="full_member_util_shared" class="form-control" value="@item.full_member_util_shared" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">Full Member Util Email</label>
+                            <input id="fullMbrUtilEml" name="full_member_util_email" class="form-control" value="@item.full_member_util_email" />
+                        </div>                       
+                        <div class="form-group">
+                            <label  class="control-label">Scheme Expiry Alert Email</label>
+                            <input id="schmXpAltEmail" name="scheme_expiry_alert_email" class="form-control" value="@item.scheme_expiry_alert_email" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Age Cut off alert</label>
+                            <input id="ageCutoffAlt" name="age_cut_off_alert" class="form-control numericsonly" value="@item.age_cut_off_alert"/>
+                        </div>
+                     
+                        <div class="form-group">
+                            <label class="control-label">Split Report To Mult Sheets</label>
+                            <input id="splitToMultiSs" name="split_report_into_multiple_sheets" class="form-control numericsonly" value="@item.split_report_into_multiple_sheets" />                           
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Perc report Frequency</label>
+                            <input id="rprtFreq" name="perc_report_frequency" class="form-control numericsonly" value="@item.perc_report_frequency" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Include Cat Description</label>
+                            <input id="inclCatDescr" name="include_cat_desc" class="form-control" value="@item.include_cat_desc" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Include Util summary</label>
+                            <input id="inclUtilSummry" name="include_util_summary" class="form-control" value="@item.include_util_summary" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit Edit" class="btn btn-primary pull-left btnEditAlertSetting" />
+                            <a class="btn btn-primary pull-right" asp-controller="Home" asp-action="ViewCustomerAlertSetting">  Back </a>
+                        </div>
+                    </div>
+                </form>
+                }
+                <br />   <br />   <br />   <br />
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
