@@ -34,7 +34,12 @@ namespace NotificationUI.Controllers
 
         CultureInfo culture = new CultureInfo("en-US");
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, AppDBContext _context, IWebHostEnvironment _environment)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private ISession _session => _httpContextAccessor.HttpContext.Session;
+
+        public string userI;
+
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, AppDBContext _context, IWebHostEnvironment _environment, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _configuration = config;
@@ -42,19 +47,28 @@ namespace NotificationUI.Controllers
             Baseurl = _configuration["StaticStrings:BaseUrl"];
             Environment = _environment;
             SQLConnection = _configuration.GetConnectionString("ConnectionStr");
+            _httpContextAccessor = httpContextAccessor;
+            userI = _session.GetString("UserId");
         }
 
         public IActionResult Index() {
-            var userI = HttpContext.Session.GetString("UserId");
-            ViewBag.Name = userI;
+            // var userI = HttpContext.Session.GetString("UserId");           
+            CheckSessionID();
+            return View();
+        }
+
+        public IActionResult CheckSessionID()
+        {
             if (userI == null)
             {
                 return RedirectToAction("Login", "Account");
             }
+            ViewBag.Name = userI;
             return View();
         }
         public IActionResult EditCstClaimAlert(int id, int customer_id)
         {
+            CheckSessionID();
             try { 
                 WebClient wc = new WebClient();
                 List<CustomerClaimAlert> claimalert = null;
@@ -70,6 +84,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult ViewCustomerAlertSetting()
         {
+            CheckSessionID();
             try { 
                 WebClient wc = new WebClient();
                 List<CustomerAlertSetting> csalert = null;
@@ -85,6 +100,7 @@ namespace NotificationUI.Controllers
         }       
         public IActionResult ViewCustomerClaimAlert()
         {
+            CheckSessionID();
             try
             {
                 WebClient wc = new WebClient();
@@ -101,6 +117,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult ViewFullUtilShareSetting()
         {
+            CheckSessionID();
             try { 
                 WebClient wc = new WebClient();
                 List<CustomerFullUtilShareSetting> utilshare = null;
@@ -116,6 +133,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult ViewStatementConfig()
         {
+            CheckSessionID();
             try { 
                 WebClient wc = new WebClient();
                 List<IndividualStatementConfig> config = null;
@@ -131,6 +149,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult ViewSentStatement()
         {
+            CheckSessionID();
             try { 
                 WebClient wc = new WebClient();
                 List<SentStatement> sstatement = null;
@@ -146,6 +165,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult ViewSchemeUtilAlert()
         {
+            CheckSessionID();
             try { 
                 WebClient wc = new WebClient();
                 List<SchemeUtilAlertModel> alert = null;
@@ -161,6 +181,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult ViewCustomerAlert()
         {
+            CheckSessionID();
             try
             {
                 WebClient wc = new WebClient();
@@ -177,6 +198,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult PagedCustomerAlertsPage()
         {
+            CheckSessionID();
             TotalAlertsPages();
             return View();
         }
@@ -191,6 +213,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult EditSchemeUtilAlert(int id)
         {
+            CheckSessionID();
             try
             {
                 WebClient wc = new WebClient();
@@ -207,6 +230,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult EditFullUtilSetting(int id)
         {
+            CheckSessionID();
             try
             {
                 WebClient wc = new WebClient();
@@ -224,7 +248,9 @@ namespace NotificationUI.Controllers
         }
         public IActionResult EditCustomerAlert(int alertId)
         {
-          //  er
+            CheckSessionID();
+
+            //  er
 
             return View();
         }
@@ -520,6 +546,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult EditStatementConfig(int id)
         {
+            CheckSessionID();
             try
             {
                 WebClient wc = new WebClient();
@@ -536,6 +563,7 @@ namespace NotificationUI.Controllers
         }
         public IActionResult EditCstAlertSetting(int id)
         {
+            CheckSessionID();
             try
             {
                 WebClient wc = new WebClient();

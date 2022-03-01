@@ -4,36 +4,46 @@
     ViewData["Title"] = "Login";
     Layout = "~/Pages/Shared/_AccountLayout.cshtml";
 }
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-    <form method="post"  asp-controller="Account" asp-action="Login">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group">
-            <label>Email</label>
-            <input name="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
+<div class="portlet light portlet-fit portlet-datatable bordered">
+    <div class="portlet-body">
+        <div class="form-body">  
+            <div class="table-container"> 
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                          <span class="caption-subject font-green sbold uppercase" style="font-weight:bold">LOGIN PAGE</span>
+                                        <br />
+                    <form method="post"  asp-controller="Account" asp-action="Login">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input name="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
 
-        <div class="form-group">
-            <label>Password</label>
-            <input name="Password" type="password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input name="Password" type="password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
 
-        <div class="form-group">
-            <div class="custom-control custom-checkbox">
-                <input asp-for="RememberMe" type="checkbox" class="custom-control-input">
-                <label class="custom-control-label" asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
-            </div>
-        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input asp-for="RememberMe" type="checkbox" class="custom-control-input">
+                                <label class="custom-control-label" asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            <a asp-action="ForgotPassword">Forgot Password</a>&nbsp;<br /> <button type="submit" class="btn-primary btn-block btnLogin">Login</button>
-        </div>       
-    </form>
-    <div class="col-md-2"></div>
- </div>
+                        <div class="form-group">
+                            <a asp-action="ForgotPassword">Forgot Password</a>&nbsp;<br /> <button type="submit" class="btn-primary btn-block btnLogin">Login</button>
+                        </div>       
+                    </form>
+                    <div class="col-md-2"></div>
+                 </div>
+                </div>
+             </div>
+         </div>
+     </div>
 </div>
 
 

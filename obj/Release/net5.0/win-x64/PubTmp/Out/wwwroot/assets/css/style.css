@@ -301,7 +301,7 @@ table.dataTable {
 	color: #aaa;
 }
 .card-box {
-	background-color: #01af58;
+	background-color: #B01C2E;
 	border: 1px solid #ededed;
 	border-radius: 4px;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
@@ -712,7 +712,7 @@ table.dataTable {
 -----------------------*/
 
 .header {
-	background: #01af58  ;
+	background: #B01C2E  ;
 	left: 0;
 	position: fixed;
 	right: 0;
@@ -1106,13 +1106,13 @@ table.dataTable {
 }
 .account-box .account-btn {
 	background: #47aa42;
-	background: -moz-linear-gradient(left, #47aa42 0%, #01af58 100%);
-	background: -webkit-gradient(left top, right top, color-stop(0%, #47aa42), color-stop(100%, #01af58));
-	background: -webkit-linear-gradient(left, #47aa42 0%, #01af58 100%);
-	background: -o-linear-gradient(left, #47aa42 0%, #01af58 100%);
-	background: -ms-linear-gradient(left, #47aa42 0%, #01af58 100%);
-	background: linear-gradient(to right, #47aa42 0%, #01af58 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#47aa42', endColorstr='#01af58', GradientType=1);
+	background: -moz-linear-gradient(left, #47aa42 0%, #B01C2E 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, #47aa42), color-stop(100%, #B01C2E));
+	background: -webkit-linear-gradient(left, #47aa42 0%, #B01C2E 100%);
+	background: -o-linear-gradient(left, #47aa42 0%, #B01C2E 100%);
+	background: -ms-linear-gradient(left, #47aa42 0%, #B01C2E 100%);
+	background: linear-gradient(to right, #47aa42 0%, #B01C2E 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#47aa42', endColorstr='#B01C2E', GradientType=1);
 	border-radius: 0;
 	font-size: 22px;
 	padding: 10px 26px;
