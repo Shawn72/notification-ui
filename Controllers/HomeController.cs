@@ -52,8 +52,15 @@ namespace NotificationUI.Controllers
         }
 
         public IActionResult Index() {
-            // var userI = HttpContext.Session.GetString("UserId");           
-            CheckSessionID();
+            if (userI == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (userI != null)
+            {
+                ViewBag.Name = userI;
+               // GetMyUserRole();
+            }
             return View();
         }
 

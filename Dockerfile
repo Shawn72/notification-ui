@@ -2,7 +2,7 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8067
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
@@ -19,4 +19,4 @@ RUN dotnet publish "NotificationUI.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "NotificationUI.dll"]
+ENTRYPOINT ["dotnet", "NotificationUI.dll", "--environment=Production"]
