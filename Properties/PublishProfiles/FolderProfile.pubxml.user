@@ -5,6 +5,6 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\Projects\NotificationProject\NotificUI\</_PublishTargetUrl>
-    <History>True|2022-02-25T08:27:18.2579652Z;True|2022-02-25T10:31:29.8069138+03:00;True|2022-02-24T13:23:15.0556824+03:00;True|2022-02-23T09:10:18.4211090+03:00;</History>
+    <History>True|2022-03-16T08:30:20.0521846Z;True|2022-03-15T17:00:44.0072077+03:00;True|2022-03-15T15:01:14.0507487+03:00;True|2022-02-25T11:27:18.2579652+03:00;True|2022-02-25T10:31:29.8069138+03:00;True|2022-02-24T13:23:15.0556824+03:00;True|2022-02-23T09:10:18.4211090+03:00;</History>
   </PropertyGroup>
 </Project>
