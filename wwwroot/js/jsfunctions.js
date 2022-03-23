@@ -1,8 +1,7 @@
 ﻿'use-strict';
 $(document).ready(function () {
 
-    //ldb.init();
-     
+    //ldb.init();    
     
     $(".tbl_datatable").dataTable({
         responsive: true,
@@ -139,10 +138,56 @@ $(document).ready(function () {
     });
 
     //edit claim alert
-    $('.form_edit_claim_alert .btnEditclaimalert').click(function (e) {
-        //  alert("yes, am fucked up!")
-        var formData = $(".form_edit_claim_alert").serialize();
+    $('.form_edit_claim_alert .btnEditclaimalert').click(function (e) { 
+       // var formData = $(".form_edit_claim_alert").serialize();
         e.preventDefault()
+
+        var Id = $("#id").val();
+        var cstId = $("#customer_id").val();
+        var alertMaxAmt = $("#alert_max_amount").val();
+       // var alertEmailAddr = $("#emAddressAlt option:selected").val();
+        var cntryCode = $("#country_code").val();
+        var alertMaxClaimAmt = $("#alert_max_claim_amount").val();
+
+        //select all the values in the listbox
+        var listbox = document.getElementById("emAddressAlt");
+        for (var count = 0; count < listbox.options.length; count++) {
+            listbox.options[count].selected = true;
+        }
+        //split on comma and replace it with ";"
+        var listemails = $("#emAddressAlt").val().toString();
+        var joinedEmails = listemails.replace(/,/g, ';');
+
+        //declare model to pass over to controller
+        var claimlAlert = {}
+
+        claimlAlert.id = Id;
+        claimlAlert.customer_id = cstId;
+        claimlAlert.alert_max_amount = alertMaxAmt;
+        claimlAlert.email_address = joinedEmails;
+        claimlAlert.country_code = cntryCode;
+        claimlAlert.alert_max_claim_amount = alertMaxClaimAmt;
+
+        //input validations
+        if (!cstId) {
+            alert("Customer Id is a required field, Cannot be null!")
+            $("#customer_id").css("border", "1px solid red");
+            $("#customer_id").focus();
+            return
+        }
+        if (!alertMaxAmt) {
+            alert("Alert Maximum Amount is a required field, Cannot be null!")
+            $("#alert_max_amount").css("border", "1px solid red");
+            $("#alert_max_amount").focus();
+            return
+        }
+        if (!alertMaxClaimAmt) {
+            alert("Alert Amximum Claim Amount is a required Field, Cannot be null!")
+            $("#alert_max_claim_amount").css("border", "1px solid red");
+            $("#alert_max_claim_amount").focus();
+            return
+        }
+
         Swal.fire({
             title: "Are you sure?",
             text: "Proceed to edit?",
@@ -160,7 +205,8 @@ $(document).ready(function () {
                     url: "/Home/UpdateClaimAlert",
                     dataType: "json",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: formData,
+                    // data: formData,
+                    data: { "claimlAlert": claimlAlert },
                     async: true,
                     success: function (data) {
                        // alert(data)
@@ -172,18 +218,7 @@ $(document).ready(function () {
                                         text: "Claim alert edited success!",
                                         type: "success"
                                     }).then(() => {
-                                        $("#feedbackMsg").css("display", "block");
-                                        App.alert({
-                                            container: "#feedbackMsg",
-                                            place: "append",
-                                            type: "success",
-                                            message: "Util alert edited!",
-                                            close: true,
-                                            reset: true,
-                                            focus: true,
-                                            closeInSeconds: 10,
-                                            icon: "check"
-                                        });
+                                        $("#feedbackMsg").css("display", "block");                                       
                                     });
                                 break;
                             default:
@@ -193,18 +228,7 @@ $(document).ready(function () {
                                         text: "Error Occured while editing!",
                                         type: "warning"
                                     }).then(() => {
-                                        $("#feedbackMsg").css("display", "block");
-                                        App.alert({
-                                            container: "#feedbackMsg",
-                                            place: "append",
-                                            type: "danger",
-                                            message: "An error occured!",
-                                            close: true,
-                                            reset: true,
-                                            focus: true,
-                                            closeInSeconds: 10,
-                                            icon: "error"
-                                        });
+                                        $("#feedbackMsg").css("display", "block");                                       
                                     });
 
                                 break;
@@ -313,24 +337,62 @@ $(document).ready(function () {
     //edit customer alert setting
     $('.form_edit_cst_alert_setting .btnEditAlertSetting').click(function (e) {
 
-        e.preventDefault();
-        var formData = $(".form_edit_cst_alert_setting").serialize();
+        e.preventDefault();       
 
         // required fields
+        var Id = $("#id").val();
         var polId = $("#txtPolId").val();
         var poolNumber = $("#poolNo").val();
-        var inPatientAlt = $("#inPAlert").val();
+        var inPatientAlt = $("#inPAlert option:selected").val();
         var cstmerCode = $("#cstCode").val();
         var ipAltEmail = $("#txtIpAlertEmail").val();
-        var fullMbrAlt = $("#txtfullmbralert").val();
+        var fullMbrAlt = $("#full_member_util option:selected").val();
         var fMbrUtEml = $("#fullMbrUtilEml").val();
-        var schXpAEmail = $("#schmXpAltEmail").val();        
-        var cutOffAge = $("#ageCutoffAlt").val();
-        var splitReport = $("#splitToMultiSs").val();
+        var splitReport = $("#splitToMultiSs option:selected").val();
         var reportFreq = $("#rprtFreq").val();
-        var inclCatdesrpt = $("#inclCatDescr").val();
-        var incUtlSumm = $("#inclUtilSummry").val();
-        
+        var inclCatdesrpt = $("#inclCatDescr option:selected").val();
+        var incUtlSumm = $("#inclUtilSummry option:selected").val();
+        var cstName = $("#customer_name").val();
+        var perAlert = $("#percentage_alert").val();
+        var cntryCode = $("#country_code").val();
+        var inPWeeklyAlrt = $("#inpatient_weekly_alert option:selected").val();
+        var mbrPercUtil = $("#member_perc_util option:selected").val();
+        var schmUtilIndex = $("#scheme_util_index option:selected").val();
+        var flMbrutilShared = $("#full_member_util_shared option:selected").val();
+
+        //select all the values in the listbox
+        var listbox = document.getElementById("emAddress");
+        for (var count = 0; count < listbox.options.length; count++) {
+            listbox.options[count].selected = true;
+        }
+        var listemails = $("#emAddress").val().toString();
+        var joinedEmails = listemails.replace(/,/g, ';');
+
+        var csalertSet = {}
+        // var formData = $(".form_edit_cst_alert_setting").serialize();
+        // alert("testing " + joined)
+
+        csalertSet.id = Id;
+        csalertSet.customer_name = cstName;
+        csalertSet.percentage_alert = perAlert;
+        csalertSet.email_address = joinedEmails;
+        csalertSet.pol_id = polId;
+        csalertSet.country_code = cntryCode;
+        csalertSet.customer_code = cstmerCode;
+        csalertSet.inpatient_alert = inPatientAlt;
+        csalertSet.inpatient_weekly_alert = inPWeeklyAlrt;
+        csalertSet.member_perc_util = mbrPercUtil;
+        csalertSet.pool_number = poolNumber;
+        csalertSet.scheme_util_index = schmUtilIndex;
+        csalertSet.ip_alert_email = ipAltEmail;
+        csalertSet.full_member_util = fullMbrAlt;
+        csalertSet.full_member_util_shared = flMbrutilShared;
+        csalertSet.full_member_util_email = fMbrUtEml;
+        csalertSet.split_report_into_multiple_sheets = splitReport;
+        csalertSet.perc_report_frequency = reportFreq;
+        csalertSet.include_cat_desc = inclCatdesrpt;
+        csalertSet.include_util_summary = incUtlSumm;
+
         if (!polId) {
             alert("Pol Id is a required field, Cannot be null!")
             $("#txtPolId").css("border", "1px solid red");
@@ -373,18 +435,8 @@ $(document).ready(function () {
             $("#fullMbrUtilEml").focus();
             return
         }
-        if (!schXpAEmail) {
-            alert("Scheme Expiry Alert Email is a required Field, Cannot be null!")
-            $("#schmXpAltEmail").css("border", "1px solid red");
-            $("#schmXpAltEmail").focus();
-            return
-        }
-        if (!cutOffAge) {
-            alert("Cut Off Age is a required Field, Cannot be null!")
-            $("#ageCutoffAlt").css("border", "1px solid red");
-            $("#ageCutoffAlt").focus();
-            return
-        }
+       
+      
         if (!splitReport) {
             alert("Split Report In Multi Sheets is a required Field, Cannot be null!")
             $("#splitToMultiSs").css("border", "1px solid red");
@@ -428,7 +480,8 @@ $(document).ready(function () {
                     url: "/Home/UpdateCustomerAlertSettn",
                     dataType: "json",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: formData,
+                   // data: formData,
+                    data: { "csalertSet": csalertSet },
                     async: true,
                     success: function (data) {
                         // alert(data)
@@ -440,18 +493,7 @@ $(document).ready(function () {
                                         text: "Alert Settings edited success!",
                                         type: "success"
                                     }).then(() => {
-                                        $("#feedbackMsg").css("display", "block");
-                                        App.alert({
-                                            container: "#feedbackMsg",
-                                            place: "append",
-                                            type: "success",
-                                            message: "Alert Setting edited!",
-                                            close: true,
-                                            reset: true,
-                                            focus: true,
-                                            closeInSeconds: 10,
-                                            icon: "check"
-                                        });
+                                        $("#feedbackMsg").css("display", "block");                                       
                                     });
                                 break;
                             default:
@@ -461,18 +503,7 @@ $(document).ready(function () {
                                         text: "Error Occured while editing!",
                                         type: "warning"
                                     }).then(() => {
-                                        $("#feedbackMsg").css("display", "block");
-                                        App.alert({
-                                            container: "#feedbackMsg",
-                                            place: "append",
-                                            type: "danger",
-                                            message: "An error occured!",
-                                            close: true,
-                                            reset: true,
-                                            focus: true,
-                                            closeInSeconds: 10,
-                                            icon: "error"
-                                        });
+                                        $("#feedbackMsg").css("display", "block");                                       
                                     });
 
                                 break;
@@ -672,9 +703,160 @@ $(document).ready(function () {
 
         });
     });
+      
+    //edit alert setting table
+    $("#tbl_cstalert_setting").dataTable({
+        responsive: true,
+        lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+        pageLength: 5,
+        language: { lengthMenu: " _MENU_ records" },
+        columnDefs: [
+            {
+                orderable: !0,
+                defaultContent: "-",
+                targets: "_all"
+            },
+            {
+                searchable: !0,
+                targets: "_all"
+            },
+            {
+            "class": "text-wrap",
+            targets:[ 4,12]
+            }
+        ],
+        order: [
+            [0, "asc"]
+        ],
+        bDestroy: true,
+        info: false,
+        processing: true,
+        retrieve: true,
+        responsive: {
+            details: true
+        }
+    });
 
-    //next fnct...
+    //add email to the list    
+    $('.form_edit_cst_alert_setting .btnAddEmailtoList').click(function (e) {
+        e.preventDefault();
+        var emToAdd = $("#add_email_list").val();
+        var AddEmail = new Option(emToAdd, emToAdd);
+        var listbox = document.getElementById("emAddress");
+        listbox.options.add(AddEmail);
+        alert("Email added to list!")
+    })
 
+    //selected listbox value to edit    
+    $('.form_edit_cst_alert_setting .btnEditEmailLst').click(function (e) {
+        e.preventDefault();
+        var emToedit = $("#emAddress option:selected").val()
+        if (!emToedit) {
+            alert("select email to edit first!")
+            return
+        }
+        var listbox = document.getElementById("emAddress");
+        $("#editEmaildiv").css("display", "block")
+        $("#edit_email_list").val(emToedit);
+        listbox[listbox.selectedIndex].remove();
+    })
+
+    //add edited email back to list    
+    $('.form_edit_cst_alert_setting .btnAddEditedEmailtoList').click(function (e) {
+        e.preventDefault();
+        var emToedit = $("#edit_email_list").val();
+        if (!emToedit) {
+            alert("edited email should not be null!")
+            return
+        }
+        var AddEmail = new Option(emToedit, emToedit);
+        var listbox = document.getElementById("emAddress");
+        listbox.options.add(AddEmail);
+        alert("Edited email added back to list!")
+    })
+
+    /////////////////////////
+    //add email to the alert list    
+    $('.form_edit_claim_alert .btnAddAlrtEmailtoList').click(function (e) {
+        e.preventDefault();
+        var emToAdd = $("#addAlrtEmailtoList").val();
+        var AddEmail = new Option(emToAdd, emToAdd);
+        var listbox = document.getElementById("emAddressAlt");
+        listbox.options.add(AddEmail);
+        alert("Email added to list!")
+    })
+
+    //select listbox value to edit    
+    $('.form_edit_claim_alert .btnEditEmailAlrtLst').click(function (e) {
+        e.preventDefault();
+        var emToedit = $("#emAddressAlt option:selected").val()
+        if (!emToedit) {
+            alert("select email to edit first!")
+            return
+        }
+        var listbox = document.getElementById("emAddressAlt");       
+        $("#editAlrtEmailDiv").css("display", "block")
+        $("#edit_alert_email_list").val(emToedit);
+        listbox[listbox.selectedIndex].remove();
+    })
+
+    //add edited alert email back to list    
+    $('.form_edit_claim_alert .btnAddEditedAlertEmailLst').click(function (e) {
+        e.preventDefault();
+        var emToedit = $("#edit_alert_email_list").val();
+        if (!emToedit) {
+            alert("edited email should not be null!")
+            return
+        }
+        var AddEmail = new Option(emToedit, emToedit);
+        var listbox = document.getElementById("emAddressAlt");
+        listbox.options.add(AddEmail);
+        alert("Edited email added back to list!")
+    })
+
+    // next fnct...
+
+    /////////////////////////
+    //add email to the util list    
+    $('.form_edit_util_set .btnAddUtilEmailtoList').click(function (e) {
+        e.preventDefault();
+        var emToAdd = $("#addUtilEmailtoList").val();
+        var AddEmail = new Option(emToAdd, emToAdd);
+        var listbox = document.getElementById("emAddressUtil");
+        listbox.options.add(AddEmail);
+        alert("Email added to list!")
+    })
+
+    //select listbox value to edit    
+    $('.form_edit_util_set .btnEditEmailUtilLst').click(function (e) {
+        e.preventDefault();
+        var emToeditU = $("#emAddressUtil option:selected").val()
+        if (!emToeditU) {
+            alert("select email to edit first!")
+            return
+        }
+        var listbox = document.getElementById("emAddressUtil");
+       // alert("selected index: "+listbox.selectedIndex)
+        $("#editUtilEmailDiv").css("display", "block")
+        $("#edit_util_email_list").val(emToeditU);
+        listbox[listbox.selectedIndex].remove();
+    })
+
+    //add edited alert email back to list    
+    $('.form_edit_util_set .btnAddEditedUtilEmailLst').click(function (e) {
+        e.preventDefault();
+        var emToedit = $("#edit_util_email_list").val();
+        if (!emToedit) {
+            alert("edited email should not be null!")
+            return
+        }
+        var AddEmail = new Option(emToedit, emToedit);
+        var listbox = document.getElementById("emAddressUtil");
+        listbox.options.add(AddEmail);
+        alert("Edited email added back to list!")
+    })
+
+    // next fnct...
 
 });
 
@@ -748,16 +930,15 @@ function fetchAlertsData(PageNumber, PageSize) {
                     newarr[i].balance,
                     newarr[i].percentageExpenditure,
                     newarr[i].percentageBalance,
-                    // newarr[i].insert_date,
                     new Date(newarr[i].insert_date).toLocaleDateString('en-US',
                         { day: '2-digit', month: '2-digit', year: 'numeric' }),
-                    newarr[i].ben_shared,
+                    newarr[i].benSharedString,
                     newarr[i].memType,
                     newarr[i].data_source,
                     newarr[i].policy_id,
                     newarr[i].customer_id,
-                    newarr[i].country_code,
-                    '<a class="nav-link info text-dark edit_cs_alert" href="javascript:;"><i class="fa fa-pencil-square" aria-hidden="true"> Edit </i></a>'
+                    newarr[i].country_code
+                   
                 ]);
             }
         },
@@ -773,78 +954,9 @@ function fetchAlertsData(PageNumber, PageSize) {
     function (tl) {
         tl.preventDefault();
         var i = $(this).parents("tr")[0];
-        var alertid = i.cells[0].innerHTML;
+        var alertid = i.cells[1].innerHTML;
         window.location.href = "/Home/EditCustomerAlert?alertId=" + alertid;
     })
 
 
 }
-
-//START: list books
-//var ldb = function () {
-//    b = function () {
-//        var tl = $("#tbl_dashb_books"),
-//            l = tl.dataTable({
-//                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
-//                pageLength: 5,
-//                language: { lengthMenu: " _MENU_ records" },
-//                columnDefs: [
-//                    {
-//                        orderable: !0,
-//                        defaultContent: "-",
-//                        targets: "_all"
-//                    },
-//                    {
-//                        searchable: !0,
-//                        targets: "_all"
-//                    }
-//                ],
-//                order: [
-//                    [0, "asc"]
-//                ],
-//                bDestroy: true,
-//                info: false,
-//                processing: true,
-//                retrieve: true,
-//                responsive: true,
-//                responsive: {
-//                    details: false
-//                }
-//            });
-
-//        $.ajaxSetup({
-//            global: false,
-//            type: "POST",
-//            url: "/Home/DashboardBooks",
-//            beforeSend: function () {
-//                $(".modalspinner").show();
-//            },
-//            complete: function () {
-//                $(".modalspinner").hide();
-//            }
-//        });
-
-//        $.ajax({          
-//            async: true,
-//        }).done(function (json) {
-//            //parse string to JSON                
-//            var newarr = JSON.parse(JSON.stringify(json));           
-//            l.fnClearTable();
-//            for (var i = 0; i < newarr.length; i++) {
-//                l.fnAddData([                  
-//                    newarr[i].AlertID,
-//                    newarr[i].title,
-//                    newarr[i].author,
-//                    newarr[i].price,
-//                    newarr[i].numberofCopies
-
-//                ]);
-//            }
-//        });
-//    };
-//    return {
-//        init: function () {
-//            b();
-//        }
-//    }
-//}();

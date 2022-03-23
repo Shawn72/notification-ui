@@ -46,3 +46,20 @@ html, body {
     width: 100px;
     max-width: 100px;
 }
+
+.text-wrap {
+    white-space: normal;
+}
+.width-200 {
+    width: 200px;
+}
+.boldme{
+    font-weight:bold
+}
+.noborder{
+    border:none;
+    color:none
+}
+.nodisplay {
+    display: none
+}

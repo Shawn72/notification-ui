@@ -7,9 +7,6 @@
     CultureInfo culture = new CultureInfo("en-US");
 }
 
-<h4>View Full Util Share Setting</h4>
-
-<p><a asp-action="Create">Create New</a></p>
 <div class="panel panel-default" style="margin-top:10px;">
     <div class="row">
         <div class="col-md-12 col-lg-12">
@@ -21,20 +18,23 @@
                                 <table class="table table-striped table-bordered tbl_datatable responsive" id="tbl_full_util_setting">
                                     <thead>
                                         <tr>
-                                            <th> Id </th>
+                                            <th></th>
+                                            <th class="nodisplay"> Id </th>
                                             <th> Country Code </th>
                                             <th> Customer Id </th>
-                                            <th> Pol Id </th>
+                                            <th> Policy Id </th>
                                             <th> Email Addresses </th>
                                             <th> Insert Date </th>
-                                            <th> Percentage Alert </th>
-                                            <th></th>
+                                            <th> Percentage Alert </th>                                         
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model) {
                                                 <tr>
                                                     <td>
+                                                        @Html.ActionLink("Edit", "EditFullUtilSetting", new {  id = item.pol_id  })
+                                                    </td>
+                                                    <td class="nodisplay">
                                                         @Html.DisplayFor(modelItem => item.id)
                                                     </td>
                                                     <td>
@@ -47,17 +47,14 @@
                                                         @Html.DisplayFor(modelItem => item.pol_id)
                                                     </td>
                                                     <td>
-                                                        @Html.DisplayFor(modelItem => item.email_address)
+                                                        <textarea size="8" class="form-control" readonly> @item.email_address.Trim() </textarea>                                                       
                                                     </td>
                                                     <td>
                                                         @DateTime.Parse(item.insert_date.ToString(), culture.DateTimeFormat).ToShortDateString()
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.percentage_alert)
-                                                    </td>
-                                                    <td>
-                                                        @Html.ActionLink("Edit", "EditFullUtilSetting", new {  id = item.id  })
-                                                    </td>
+                                                    </td>                                                    
                                                 </tr>
                                         }
                                     </tbody>

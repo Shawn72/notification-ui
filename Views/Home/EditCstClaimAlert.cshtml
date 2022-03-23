@@ -1,11 +1,9 @@
-﻿@model IEnumerable<NotificationUI.Models.CustomerClaimAlert>
+﻿@model NotificationUI.Models.CustomerClaimAlert;
 
 @{
     ViewData["Title"] = "EditCstClaimAlert";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
-
-<p> <a asp-action="Create">Create New </a> </p>
 
 <div class="portlet light portlet-fit portlet-datatable bordered">
 <div class="portlet-title">
@@ -18,53 +16,64 @@
      
 <div class="portlet-body">
   <div class="form-body">
-      <div class="table-container">
-           <form  class="form_edit_claim_alert" >
-                <div class="scroll">
-                   <table class="table table-responsive" id="tbl_claim_alerts">
-                        <thead>
-                            <tr>
-                                <th> ID </th>
-                                <th> Customer ID </th>
-                                <th> Alert Max Amount </th>
-                                <th> Email Address</th>
-                                <th> Country Code </th>
-                                <th> Maximum Claim Amount </th>                               
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model) {
-                                <tr>
-                                    <td>
-                                        <input class="form-control floating" name="id" type="text" readonly asp-for=@item.id value=@item.id />
-                                    </td>
-                                    <td>
-                                        <input class="form-control floating" name="customer_id" type="text" readonly asp-for=@item.customer_id value=@item.customer_id />
-                                    </td>
-                                    <td>
-                                        <input class="form-control floating numericsonly" name="alert_max_amount" type="number" asp-for=@item.alert_max_amount value=@item.alert_max_amount />
-                                    </td>
-                                    <td>
-                                        <textarea class="form-control floating" name="email_address" rows="10" cols="50" type="text" asp-for=@item.email_address > @item.email_address </textarea>
-                                    </td>
+       <div class="table-container vert">  
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+              <form  class="form_edit_claim_alert" >
+                    <div class="form-group nodisplay" >
+                        <label class="control-label">ID</label>
+                        <input class="form-control floating" name="id" type="text" readonly value=@Model.id />
+                    </div>
 
-                                    <td>
-                                         <input class="form-control floating" readonly name="country_code" type="text" asp-for=@item.country_code value=@item.country_code />
-                                    </td>
-                                    <td>
-                                        <input class="form-control floating numericsonly" name="alert_max_claim_amount" type="number" asp-for=@item.alert_max_claim_amount value=@item.alert_max_claim_amount />
-                                    </td>                                    
-                                </tr>
-                                <tr>
-                                    <td>                                                                       
-                                         <input class="form-control btn btn-primary btnEditclaimalert" value="Edit Submit" type="submit" />                                  
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                 </div>
-            </form>
+                    <div class="form-group">
+                        <label class="control-label">Customer ID</label>
+                        <input class="form-control floating" id="customer_id" name="customer_id" type="text" readonly  value=@Model.customer_id />
+                    </div>
+
+                     <div class="form-group">
+                        <label class="control-label"> Alert Maximum Amount</label>
+                        <input class="form-control floating numericsonly" id="alert_max_amount"  name="alert_max_amount" type="number"  value=@Model.alert_max_amount />
+                    </div>
+
+                    <div class="form-group">
+                        <label>If you'd like to add an email, do it below here, if not, just ignore</label>
+                        <label  class="control-label">Add Email to List</label>
+                        <input type="email" id="addAlrtEmailtoList" name="addAlrtEmailtoList" class="form-control" placeholder="add email to list" />
+                        <br />
+                        <button type="submit" class="btn btn-primary pull-right btnAddAlrtEmailtoList" >Add Email </button>       
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Email Addresses</label>
+                        <select id="emAddressAlt" name="email_address" class="form-control" multiple="multiple"  size="8" asp-items="@Model.Email_Lists"> </select>
+                        <br />
+                        <button type="submit" class="btn btn-primary pull-right btnEditEmailAlrtLst" >Edit Email </button> 
+                    </div>
+                    <div class="form-group nodisplay" id="editAlrtEmailDiv">
+                        <label  class="control-label">Edit Email List</label>
+                        <input type="text" id="edit_alert_email_list" class="form-control" placeholder ="edit email on list" />
+                        <br />
+                        <button type="submit" class="btn btn-primary pull-right btnAddEditedAlertEmailLst" >Edit </button>                          
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+                        <label class="control-label">Country Code</label>
+                        <input class="form-control floating" readonly id="country_code" name="country_code" type="text" value=@Model.country_code />
+                        </div>
+
+                        <div class="form-group">
+                        <label class="control-label"> Maximum Claim Count</label>
+                        <input class="form-control floating numericsonly" id="alert_max_claim_amount" name="alert_max_claim_amount" type="number" value=@Model.alert_max_claim_amount /> 
+                    </div>
+
+                    <div class="form-group">
+                        <input class="pull-left btn btn-primary btnEditclaimalert " value="Edit Submit" type="submit" />  
+                        <a class="btn btn-primary pull-right" asp-controller="Home" asp-action="ViewCustomerClaimAlert">  Back </a>                                    
+                    </div>
+              </form>
+          </div>
+          <div class="col-md-2"></div>
        </div>
    </div>
 </div>

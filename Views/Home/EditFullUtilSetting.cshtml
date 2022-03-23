@@ -1,76 +1,82 @@
-﻿@model IEnumerable<NotificationUI.Models.CustomerFullUtilShareSetting>
+﻿@model NotificationUI.Models.CustomerFullUtilShareSetting;
 
 @{
     ViewData["Title"] = "EditFullUtilSetting";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h4>Edit Full Util Setting</h4>
-
-<p> <a asp-action="Create">Create New</a></p>
-
 <div class="portlet light portlet-fit portlet-datatable bordered">
-<div class="portlet-title">
-    <div class="caption">
-        <i class="icon-settings font-green"></i>
-        <span class="caption-subject font-green sbold uppercase">Edit Full Util Setting</span>
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-settings font-green"></i>
+            <span class="caption-subject font-green sbold uppercase">Edit Full Util Setting</span>
+        </div>
     </div>
-</div>
-<br />
+    <br />
      
-<div class="portlet-body">
-  <div class="form-body">
-      <div class="table-container">
-           <form  class="form_edit_util_set" >
-                <div class="scroll">
-                   <table class="table table-responsive" id="tbl_full_util_set">
-                        <thead>
-                            <tr>
-                                <th><label class="control-label">ID</label> </th>
-                                <th><label class="control-label">Country Code</label></th>
-                                <th><label class="control-label">Customer ID</label></th>
-                                <th><label class="control-label">Pol Id</label> </th>
-                                <th><label class="control-label">Email Addresses</label></th>
-                                <th><label class="control-label">Insert Date</label></th>
-                                <th><label class="control-label">Percentage Alert ( % )</label></th>          
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model) {
-                                <tr>
-                                    <td>
-                                        <input class="form-control floating numericsonly" readonly name="id" type="number" asp-for=@item.id value=@item.id />
-                                    </td>
-                                    <td>
-                                        <input class="form-control floating" readonly name="country_code" type="text" asp-for=@item.country_code value=@item.country_code />
-                                    </td>
-                                    <td>
-                                        <input class="form-control floating" readonly name="customer_id" type="text" asp-for=@item.customer_id value=@item.customer_id />
-                                    </td>
-                                    <td>
-                                        <input class="form-control floating" readonly name="pol_id" type="text" asp-for=@item.pol_id value=@item.pol_id />
-                                    </td>
-                                    <td>                
-                                         <textarea class="form-control floating" name="email_address" rows="10" cols="50" type="text" asp-for=@item.email_address > @item.email_address </textarea>
-                                    </td>
-                                    <td>
-                                        <input class="form-control floating" readonly name="insert_date" type="datetime" asp-for=@item.insert_date value=@item.insert_date />
-                                    </td>
-                                    <td>
-                                        <input class="form-control floating numericsonly"  name="percentage_alert" type="number" asp-for=@item.percentage_alert value=@item.percentage_alert />
-                                    </td>            
-                                </tr>
-                                 <tr>
-                                    <td>                                                                       
-                                        <input class="form-control btn btn-primary btnEditUtilsetting" value="Edit Submit" type="submit" />                                  
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                 </div>
-               </form>
-             </div>
-         </div>
-     </div>
+    <div class="portlet-body">
+      <div class="form-body">
+          <div class="table-container scroll vert">
+               <div class="col-md-2"></div>
+               <div class="col-md-8">
+                   <form  class="form_edit_util_set">  
+
+                       <div class="form-group nodisplay" >
+                            <label class="control-label">ID</label>
+                            <input class="form-control floating" name="id" type="text" readonly value=@Model.id />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Country Code</label>
+                             <input class="form-control floating" readonly name="country_code" type="text" value=@Model.country_code />
+                        </div>
+
+                         <div class="form-group">
+                            <label class="control-label"> Customer ID</label>
+                             <input class="form-control floating" readonly name="customer_id" type="text"  value=@Model.customer_id />                                         
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"> Policy ID</label>
+                              <input class="form-control floating" readonly name="pol_id" type="text" value=@Model.pol_id />                                       
+                        </div>
+
+                        <div class="form-group">
+                            <label>If you'd like to add an email, do it below here, if not, just ignore</label>
+                            <label  class="control-label">Add Email to List</label>
+                            <input type="email" id="addUtilEmailtoList" name="addUtilEmailtoList" class="form-control" placeholder="add email to list" />
+                            <br />
+                            <button type="submit" class="btn btn-primary pull-right btnAddUtilEmailtoList" >Add Email </button>       
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Email Addresses</label>
+                            <select id="emAddressUtil" name="email_address" class="form-control" multiple="multiple"  size="8" asp-items="@Model.Email_Lists"> </select>
+                            <br />
+                            <button type="submit" class="btn btn-primary pull-right btnEditEmailUtilLst" >Edit Email </button> 
+                        </div>
+
+                        <div class="form-group nodisplay" id="editUtilEmailDiv">
+                            <label  class="control-label">Edit Email List</label>
+                            <input type="text" id="edit_util_email_list" class="form-control" placeholder ="edit email on list" />
+                            <br />
+                            <button type="submit" class="btn btn-primary pull-right btnAddEditedUtilEmailLst" >Edit </button>                          
+                        </div>
+                        <br />
+
+                         <div class="form-group">
+                            <label class="control-label"> Percentage Alert</label>
+                              <input class="form-control floating numericsonly"  name="percentage_alert" type="number" value=@Model.percentage_alert />                                     
+                        </div>
+
+                         <div class="form-group">
+                            <input class="btn btn-primary btnEditUtilsetting" value="Edit Submit" type="submit" /> 
+                            <a class="btn btn-primary pull-right" asp-controller="Home" asp-action="ViewFullUtilShareSetting">  Back </a>                                    
+                        </div>            
+                   </form>
+               </div>
+              <div class="col-md-2"></div>
+          </div>
+       </div>
+    </div>
 </div>

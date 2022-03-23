@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace NotificationUI.Models
@@ -12,5 +14,7 @@ namespace NotificationUI.Models
 		public string email_address { get; set; }
 		public string country_code { get; set; }
 		public int? alert_max_claim_amount { get; set; }
+
+		public List<SelectListItem> Email_Lists = new List<SelectListItem>();
 	}
 }

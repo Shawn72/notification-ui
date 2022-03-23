@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NotificationUI.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -78,11 +80,40 @@ namespace NotificationUI.Controllers
             CheckSessionID();
             try { 
                 WebClient wc = new WebClient();
-                List<CustomerClaimAlert> claimalert = null;
+                List<CustomerClaimAlert> claimalert = new List<CustomerClaimAlert>();
+                CustomerClaimAlert  alertModel = new CustomerClaimAlert();
                 string json = wc.DownloadString(Baseurl + "api/customerclaimalert");
                 claimalert = JsonConvert.DeserializeObject<List<CustomerClaimAlert>>(json);
                 var a_items = (from a in claimalert where a.id == id && a.customer_id == customer_id select a).GroupBy(o => o.id).Select(m => m.First()).ToList();
-                return View(a_items);
+
+                //split down emails here
+
+                //put data to the model manually
+                alertModel.id = a_items[0].id;
+                alertModel.customer_id = a_items[0].customer_id;
+                alertModel.alert_max_amount = a_items[0].alert_max_amount;
+                alertModel.country_code = a_items[0].country_code;
+                alertModel.alert_max_claim_amount = a_items[0].alert_max_claim_amount;
+
+                string emailaddresses = a_items.Select(m => m.email_address).SingleOrDefault().ToString(); 
+
+                List<EmailListModel> listModel = new List<EmailListModel>();
+
+                //get the email and split it
+                string[] emailList = emailaddresses.Split(";");
+                foreach (var email in emailList)
+                {
+                    listModel.Add(new EmailListModel()
+                    {
+                        email_id = email,
+                        email_text = email
+                    });
+                }
+                var emailDrops = new SelectList(listModel, "email_id", "email_text");
+
+                alertModel.Email_Lists = emailDrops.ToList();
+
+                return View(alertModel);
             }
             catch (Exception)
             {
@@ -127,7 +158,8 @@ namespace NotificationUI.Controllers
             CheckSessionID();
             try { 
                 WebClient wc = new WebClient();
-                List<CustomerFullUtilShareSetting> utilshare = null;
+                List<CustomerFullUtilShareSetting> utilshare = new List<CustomerFullUtilShareSetting>();
+                CustomerFullUtilShareSetting utiltModel = new CustomerFullUtilShareSetting();
                 string json = wc.DownloadString(Baseurl + "api/customerfullutilshare");
                 utilshare = JsonConvert.DeserializeObject<List<CustomerFullUtilShareSetting>>(json);
                 var allitems = (from a in utilshare select a).ToList();
@@ -212,11 +244,43 @@ namespace NotificationUI.Controllers
         public JsonResult PagedCustomerAlerts(int PageNumber, int PageSize)
         {
             WebClient wc = new WebClient();
-            List<CustomerAlertModel> alldata = null;
+            List<CustomerAlertModel> alldata = new List<CustomerAlertModel>();
+            List<CustomerAlertModel> modelList = new List<CustomerAlertModel>();
+            CustomerAlertModel cstAModel = new CustomerAlertModel();
             string json = wc.DownloadString(Baseurl + "api/customeralert/GetAllAlerts?PageNumber=" + PageNumber + "&PageSize=" + PageSize);
             alldata = JsonConvert.DeserializeObject<List<CustomerAlertModel>>(json);
-            var allitems = (from a in alldata select a).ToList();
-            return Json(allitems);
+            // var allitems = (from a in alldata select a).ToList();
+            foreach (var item in alldata) {
+                modelList.Add(new CustomerAlertModel()
+                {
+                    AlertID = item.AlertID,
+                    Customer = item.Customer,
+                    Scheme = item.Scheme,
+                    Benefit = item.Benefit,
+                    Allocation = item.Allocation,
+                    MemberName = item.MemberName,
+                    FamilyCode = item.FamilyCode,
+                    MemberNumber = item.MemberNumber,
+                    Expenditure = item.Expenditure,
+                    PoolNr = item.PoolNr,
+                    Balance = item.Balance,
+                    PercentageExpenditure = item.PercentageExpenditure,
+                    PercentageBalance = item.PercentageBalance,
+                    insert_date = item.insert_date,                
+                    memType = item.memType,
+                    data_source = item.data_source,
+                    policy_id = item.policy_id,
+                    customer_id = item.customer_id,
+                    other_number = item.other_number,
+                    scheme_start_date = item.scheme_start_date,
+                    scheme_end_date = item.scheme_end_date,
+                    country_code = item.country_code,
+                    cat_desc = item.cat_desc,
+                    BenSharedString = item.ben_shared == 1 ? "Yes" : "No"                      
+                });               
+               
+             }  
+            return Json(modelList);
         }
         public IActionResult EditSchemeUtilAlert(int id)
         {
@@ -241,12 +305,41 @@ namespace NotificationUI.Controllers
             try
             {
                 WebClient wc = new WebClient();
-                List<CustomerFullUtilShareSetting> util = null;
+                List<CustomerFullUtilShareSetting> util = new List<CustomerFullUtilShareSetting>();
+                CustomerFullUtilShareSetting utilShrModel = new CustomerFullUtilShareSetting();
+
                 string json = wc.DownloadString(Baseurl + "api/customerfullutilshare");
                 util = JsonConvert.DeserializeObject<List<CustomerFullUtilShareSetting>>(json);
-                var allitems = (from a in util where a.id == id select a)
+                var allitems = (from a in util where a.pol_id == id select a)
                     .GroupBy(o => o.id).Select(m => m.First()).ToList();
-                return View(allitems);
+
+                //put data to the model  manually
+                utilShrModel.id = allitems[0].id;
+                utilShrModel.customer_id = allitems[0].customer_id;
+                utilShrModel.country_code = allitems[0].country_code;
+                utilShrModel.percentage_alert = allitems[0].percentage_alert;
+                utilShrModel.pol_id = allitems[0].pol_id;
+                utilShrModel.insert_date = allitems[0].insert_date;
+
+                string emailaddresses = allitems.Select(m => m.email_address).SingleOrDefault().ToString();
+
+                List<EmailListModel> listModel = new List<EmailListModel>();
+
+                //get the email and split it
+                string[] emailList = emailaddresses.Split(";");
+                foreach (var email in emailList)
+                {
+                    listModel.Add(new EmailListModel()
+                    {
+                        email_id = email,
+                        email_text = email
+                    });
+                }
+                var emailDrops = new SelectList(listModel, "email_id", "email_text");
+
+                utilShrModel.Email_Lists = emailDrops.ToList();
+
+                return View(utilShrModel);
             }
             catch (Exception)
             {
@@ -257,7 +350,7 @@ namespace NotificationUI.Controllers
         {
             CheckSessionID();
 
-            //  er
+            //  to be implemented
 
             return View();
         }
@@ -491,6 +584,9 @@ namespace NotificationUI.Controllers
         { 
             try
             {
+                //concatenate emails using ";"
+                var emails = csalertSet.email_address;
+
                 //update using pure sql, EF core will fail, so no Api call here
                 var res = (dynamic)null;
                 using (SqlConnection con = new SqlConnection(SQLConnection))
@@ -503,8 +599,7 @@ namespace NotificationUI.Controllers
                     "member_perc_util=@mbrPercUtil, pool_number = @poolNumber ," +
                     "scheme_util_index = @schmUtilIndex, ip_alert_email=@ipAlertEmail ," +
                     "full_member_util = @fullMbrUtil, full_member_util_shared=@fullMbrUtilShared , " +
-                    "full_member_util_email = @fullMbrUtilEmail, scheme_expiry_alert_email=@schmXpryalertEmail, " +
-                    "age_cut_off_alert = @ageCutoffAlert, split_report_into_multiple_sheets=@splitReportMulti , " +
+                    "full_member_util_email = @fullMbrUtilEmail, split_report_into_multiple_sheets=@splitReportMulti , " +
                     "perc_report_frequency = @percRprtFreq, include_cat_desc=@inclCatDescr , "+
                      "include_util_summary = @inclUtilSumm WHERE id = " + csalertSet.id, con))
                     {
@@ -524,8 +619,6 @@ namespace NotificationUI.Controllers
                         cmd.Parameters.AddWithValue("@fullMbrUtil", csalertSet.full_member_util);
                         cmd.Parameters.AddWithValue("@fullMbrUtilShared", csalertSet.full_member_util_shared);
                         cmd.Parameters.AddWithValue("@fullMbrUtilEmail", csalertSet.full_member_util_email);
-                        cmd.Parameters.AddWithValue("@schmXpryalertEmail", csalertSet.scheme_expiry_alert_email);
-                        cmd.Parameters.AddWithValue("@ageCutoffAlert", csalertSet.age_cut_off_alert);
                         cmd.Parameters.AddWithValue("@splitReportMulti", csalertSet.split_report_into_multiple_sheets);
                         cmd.Parameters.AddWithValue("@percRprtFreq", csalertSet.perc_report_frequency);
                         cmd.Parameters.AddWithValue("@inclCatDescr", csalertSet.include_cat_desc);
@@ -571,18 +664,97 @@ namespace NotificationUI.Controllers
         public IActionResult EditCstAlertSetting(int id)
         {
             CheckSessionID();
+
+            //  listbox implementation here
+
             try
             {
                 WebClient wc = new WebClient();
-                List<CustomerAlertSetting> csalert = null;
+                List<CustomerAlertSetting> csalert = new List<CustomerAlertSetting>();
+                CustomerAlertSetting alertSett = new CustomerAlertSetting();
+
                 string json = wc.DownloadString(Baseurl + "api/customeralertsetting");
+
                 csalert = JsonConvert.DeserializeObject<List<CustomerAlertSetting>>(json);
+
                 var alertitems = (from a in csalert where a.id == id select a).GroupBy(o => o.id).Select(m => m.First()).ToList();
-                return View(alertitems);
+
+                //put data to the model  manually
+                alertSett.id = alertitems[0].id;
+                alertSett.customer_id = alertitems[0].customer_id;
+                alertSett.customer_name = alertitems[0].customer_name;
+                alertSett.percentage_alert = alertitems[0].percentage_alert;
+                alertSett.pol_id = alertitems[0].pol_id;
+                alertSett.pool_number= alertitems[0].pool_number;
+                alertSett.country_code = alertitems[0].country_code;
+                alertSett.inpatient_alert = alertitems[0].inpatient_alert;
+                alertSett.inpatient_weekly_alert = alertitems[0].inpatient_weekly_alert;
+                alertSett.customer_code = alertitems[0].customer_code;
+                alertSett.member_perc_util = alertitems[0].member_perc_util;
+                alertSett.scheme_util_index = alertitems[0].scheme_util_index;
+                alertSett.ip_alert_email = alertitems[0].ip_alert_email;
+                alertSett.full_member_util = alertitems[0].full_member_util;
+                alertSett.full_member_util_shared = alertitems[0].full_member_util_shared;
+                alertSett.full_member_util_email = alertitems[0].full_member_util_email;
+                alertSett.perc_report_frequency = alertitems[0].perc_report_frequency;
+                alertSett.include_cat_desc = alertitems[0].include_cat_desc;
+                alertSett.include_util_summary = alertitems[0].include_util_summary;
+
+                string emailaddresses = alertitems.Select(m => m.email_address).SingleOrDefault().ToString();
+
+                //PopulateList(emailaddresses);
+
+                List<EmailListModel> listModel = new List<EmailListModel>();             
+
+                //get the email and split it
+                string[] emailList = emailaddresses.Split(";");
+                foreach (var email in emailList)
+                {
+                    listModel.Add(new EmailListModel()
+                    {
+                        email_id = email,
+                        email_text = email
+                    });
+                }
+                var emailDrops = new SelectList(listModel, "email_id", "email_text");
+            
+                alertSett.Email_Lists = emailDrops.ToList();
+
+                return View(alertSett);
             }
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        public void PopulateList(string emailaddresses)
+        {
+            try
+            {
+                //WebClient wc = new WebClient();
+                //List<CustomerAlertSetting> csalert = null;
+                EmailListModel listModel = new EmailListModel();
+
+                //string json = wc.DownloadString(Baseurl + "api/customeralertsetting");
+                //csalert = JsonConvert.DeserializeObject<List<CustomerAlertSetting>>(json);
+                //var alertitems = (from a in csalert where a.id == id select a).GroupBy(o => o.id).Select(m => m.First()).ToList();
+
+                //string emailaddresses =  alertitems.Select(m=>m.email_address).SingleOrDefault().ToString();
+
+                //get the email and split it
+                string[] emailList = emailaddresses.Split(";");
+                foreach (string email in emailList)
+                {
+                    listModel.email_id = email;
+                    listModel.email_text = email;
+                }
+              
+               // return listModel;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
         public JsonResult UpdateStatementConfig(IndividualStatementConfig config)

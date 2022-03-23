@@ -33,5 +33,6 @@ namespace NotificationUI.Models
 		public string scheme_end_date { get; set; }
 		public string country_code { get; set; }
 		public string cat_desc { get; set; }
+		public string BenSharedString { get; set; }
 	}
 }

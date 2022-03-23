@@ -19,63 +19,42 @@
                                 <table class="table table-striped table-bordered tbl_datatable responsive" id="tbl_sent_statement">                                   
                                     <thead>
                                         <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.id)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.email_object)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.insert_date)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.sent)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.send_date)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.pol_id)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.family_code)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.sent_log)
-                                            </th>
-                                            <th></th>
+                                            <th class="nodisplay"> Id</th>
+                                            <th> Email Object </th>
+                                            <th> Insert Date </th>
+                                            <th> Sent  </th>
+                                            <th> Sent Date  </th>
+                                            <th> Pol Id     </th>
+                                            <th> Family Code  </th>
+                                            <th> Sent Log  </th>                                          
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model) {
                                             <tr>
+                                                <td class="nodisplay"> @Html.DisplayFor(modelItem => item.id) </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.id)
+                                                    <textarea size="15" style="width: 450px" class="form-control" readonly>@item.email_object.Trim()</textarea>                                                    
                                                 </td>
+                                                <td> @DateTime.Parse(item.insert_date.ToString(), culture.DateTimeFormat).ToShortDateString() </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.email_object)
+                                                     @if(item.sent ==1)
+                                                     {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    }  
                                                 </td>
-                                                <td> 
-                                                    @DateTime.Parse(item.insert_date.ToString(), culture.DateTimeFormat).ToShortDateString()
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.sent)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.send_date)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.pol_id)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.family_code)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.sent_log)
-                                                </td>
-                                                <td>
-                                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })                                                        
-                                                </td>
+                                                <td> @Html.DisplayFor(modelItem => item.send_date) </td>
+                                                <td> @Html.DisplayFor(modelItem => item.pol_id)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.family_code) </td>
+                                                <td> @Html.DisplayFor(modelItem => item.sent_log) </td>                                               
                                             </tr>
                                         }
                                     </tbody>

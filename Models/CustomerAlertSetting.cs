@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NotificationUI.Models
 {
@@ -31,5 +33,7 @@ namespace NotificationUI.Models
 		public int? perc_report_frequency { get; set; }
 		public int? include_cat_desc { get; set; }
 		public int? include_util_summary { get; set; }
+
+		public List<SelectListItem> Email_Lists = new List<SelectListItem>();
 	}
 }

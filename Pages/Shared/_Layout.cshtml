@@ -83,20 +83,27 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li class="active"><a  class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="glyphicon glyphicon-home"></i> <span>Dashboard</span></a></li>
-                                       
-                    <li class="submenu">
-                    <a href="#"><i class="fa fa-folder fa-fw"></i> <span> Customer Alerts</span> <span class="menu-arrow"></span></a>
-                    <ul style="display: none;">                       
-                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewCustomerAlertSetting"><span> Customer Alert Setting</span> </a> </li>
-                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewCustomerClaimAlert"><span> Customer Claim Alert</span> </a> </li>
-                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewFullUtilShareSetting"><span> Full Util Share </span> </a> </li>                   
-                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewStatementConfig"><span> Individual Statement Configs </span> </a> </li>
-                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewSentStatement"><span> Sent Statements </span> </a> </li>
-                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewSchemeUtilAlert"><span> Scheme Util Alerts </span> </a> </li>
-                        <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PagedCustomerAlertsPage"><span>Paged Customer Alerts  </span> </a> </li>
+                         
+                       @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-folder fa-fw"></i> <span> Customer Alerts</span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">                       
+                                    <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewCustomerAlertSetting"><span> Customer Alert Setting</span> </a> </li>
+                                    <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewCustomerClaimAlert"><span> Customer Claim Alert</span> </a> </li>
+                                    <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewFullUtilShareSetting"><span> Full Utilization Share </span> </a> </li>                   
+                                    <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewStatementConfig"><span> Individual Statement Configs </span> </a> </li>
+                                    <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewSentStatement"><span> Sent Statements </span> </a> </li>
+                                    <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewSchemeUtilAlert"><span> Scheme Utilization Alerts </span> </a> </li>
+                                    <li> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PagedCustomerAlertsPage"><span>Paged Customer Alerts  </span> </a> </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                          <li> <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login"><span> Login First</span> </a> </li>  
+                        }
                     </ul>
-                    </li>
-                </ul>
             </div>
         </div>
     </div> 
@@ -128,7 +135,7 @@
 <script type="text/javascript" src="~/assets/js/select2.min.js"></script>
 <script type="text/javascript" src="~/assets/js/moment.min.js"></script>
 <script type="text/javascript" src="~/assets/js/app.js"></script>
-<script type="text/javascript" src="~/assets/js/sweetalert2@8"></script>
+<script type="text/javascript" src="~/assets/js/sweetalert2@8.js"></script>
 <script type="text/javascript" src="~/assets/js/bootstrap-select.min.js" ></script>
 <script type="text/javascript" src="~/js/jsfunctions.js"  ></script> 
 <script type="text/javascript" src="~/js/jsvalidator.js"></script>

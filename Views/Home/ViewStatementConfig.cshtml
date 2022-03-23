@@ -19,147 +19,137 @@
                                 <table class="table table-striped table-bordered tbl_datatable responsive nowrap" id="tbl_statement_config">
                                       <thead>
                                         <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.id)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.customer_name)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.data_source)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.country_code)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.customer_logo)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.customer_logo2)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.pol_id)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.main_benefit)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.family_benefit)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.insert_date)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.policy_name)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.customer_id)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.send_frequeny)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.last_send_date)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.password_type)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.split_password_from_statement)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Include_image_banner)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Image_name)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.report_template_file)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.email_blast_enabled)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.zero_allocation_excempt)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.mail_domain)
-                                            </th>
                                             <th></th>
+                                            <th style="display:none"> @Html.DisplayNameFor(model => model.id) </th>
+                                            <th> Customer Name  </th>                                            
+                                            <th> Country Code </th>
+                                            <th> Customer Logo </th>
+                                            <th> Customer Logo 2 </th>
+                                            <th> Pol Id </th>
+                                            <th> Main Benefit</th>
+                                            <th> Family Benefit</th>
+                                            <th> Insert Date </th>
+                                            <th> Policy Name </th>
+                                            <th> Customer Id </th>
+                                            <th> Send Frequency </th>
+                                            <th> Last Sent Date  </th>
+                                            <th> Password Type </th>
+                                            <th> Split Password From Statement  </th>
+                                            <th> Include Image Banner </th>
+                                            <th> Image Name </th>
+                                            <th> Report Template File </th>
+                                            <th> Email Blast Enabled </th>
+                                            <th> Zero Allocation Excempt  </th>
+                                            <th> Mail Domain </th>
+                                          
                                         </tr>
                                       </thead>
                                     <tbody>
                                         @foreach (var item in Model) {
                                             <tr>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.id)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.customer_name)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.data_source)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.country_code)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.customer_logo)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.customer_logo2)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.pol_id)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.main_benefit)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.family_benefit)
-                                                </td>
-                                                <td>
-                                                    @DateTime.Parse(item.insert_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss")
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.policy_name)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.customer_id)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.send_frequeny)
-                                                </td>
-                                                <td>
-                                                    @DateTime.Parse(item.last_send_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss")
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.password_type)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.split_password_from_statement)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Include_image_banner)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Image_name)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.report_template_file)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.email_blast_enabled)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.zero_allocation_excempt)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.mail_domain)
-                                                </td>
-                                                <td>
                                                     @Html.ActionLink("Edit", "EditStatementConfig", new {  id=item.id  })                                                        
                                                 </td>
+                                                <td style="display:none"> @Html.DisplayFor(modelItem => item.id) </td>
+                                                <td> @Html.DisplayFor(modelItem => item.customer_name)</td>                                                
+                                                <td> @Html.DisplayFor(modelItem => item.country_code) </td>
+                                                <td> @Html.DisplayFor(modelItem => item.customer_logo) </td>
+                                                <td> @Html.DisplayFor(modelItem => item.customer_logo2) </td>
+                                                <td> @Html.DisplayFor(modelItem => item.pol_id) </td>
+                                                <td>                                                    
+                                                    @if(item.main_benefit ==1)
+                                                     {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    }  
+                                                </td>
+                                                <td>
+                                                     @if(item.family_benefit ==1)
+                                                     {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    } 
+                                                </td>
+                                                <td> @DateTime.Parse(item.insert_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss")  </td>
+                                                <td> @Html.DisplayFor(modelItem => item.policy_name)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.customer_id) </td>
+                                                <td> @Html.DisplayFor(modelItem => item.send_frequeny) </td>
+                                                <td> @DateTime.Parse(item.last_send_date.ToString(), culture.DateTimeFormat).ToString("dd/MM/yyyy HH:mm:ss") </td>
+                                                <td> @Html.DisplayFor(modelItem => item.password_type) </td>
+                                                <td> 
+                                                    @if(item.split_password_from_statement ==1)
+                                                    {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    } 
+                                                </td>
+                                                <td>
+                                                 @if(item.Include_image_banner ==1)
+                                                    {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    } 
+                                                </td>
+                                                <td> @Html.DisplayFor(modelItem => item.Image_name) </td>
+                                                <td> @Html.DisplayFor(modelItem => item.report_template_file) </td>
+                                                <td>
+                                                    @if(item.email_blast_enabled ==1)
+                                                    {
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                    </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if(item.zero_allocation_excempt ==1)
+                                                    {
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                    </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td> @Html.DisplayFor(modelItem => item.mail_domain) </td>
+                                                
                                             </tr>
                                         }       
                                     </tbody>

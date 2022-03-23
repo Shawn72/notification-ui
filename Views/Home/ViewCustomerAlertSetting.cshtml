@@ -9,10 +9,6 @@
 
 <section class="content container-fluid">
 
-<h4>Customer Alert Setting</h4>
-
-<p><a asp-action="Create">Create New</a></p>
-
 <div class="panel panel-default" style="margin-top:10px;">
     <div class="row">
         <div class="col-md-12 col-lg-12">
@@ -21,41 +17,46 @@
                     <span id="feedbackMsg" style="display: none"></span><br />
                         <div class="form-body">
                                 <div class="table-container scroll">
-                                     <table class="table table-striped table-bordered tbl_datatable responsive" id="tbl_cstalert_setting">
+                                     <table class="table table-striped table-bordered responsive wrap" id="tbl_cstalert_setting">
                                         <thead>
                                             <tr>
-                                                <th style="display:none;">id </th>
-                                                <th> Customer ID </th>
-                                                <th> Customer Name </th>                                               
-                                                <th> Percentage Alert ( % ) </th>
-                                                <th> Email Addresses </th>
-                                                <th> Pol Id </th>
-                                                <th> Pool Number </th>
-                                                <th> Country Code </th>
-                                                <th> Inpatient Alert </th>
-                                                <th> Inpatient Weekly Alert </th>
-                                                <th> Customer Code </th>
-                                                <th> Member Percentage Utilization </th>
-                                                <th> Scheme Util Index  </th>
-                                                <th> Ip Alert Email  </th>
-                                                <th> Full Member Util </th>
-                                                <th> Full Member Util Shared </th>
-                                                <th> Full Member Util Email  </th>                                               
-                                                <th> Split Report In Multiple Sheets </th>
-                                                <th> Percent Report Frequency </th>
-                                                <th> Include Category Discription </th>
-                                                <th> Include Util Summary </th>
                                                 <th></th>
+                                                <th style="display:none;">id </th>
+                                                <th><label>Customer ID</label></th>
+                                                <th><label>Customer Name</label> </th>                                               
+                                                <th><label>Percentage Alert ( % )</label>  </th>
+                                                <th><label>Email Addresses</label> </th>
+                                                <th><label>Pol Id</label>  </th>
+                                                <th><label>Pool Number</label>  </th>
+                                                <th><label>Country Code</label>  </th>
+                                                <th><label>Inpatient Alert</label>  </th>
+                                                <th><label>Inpatient Weekly Alert</label> </th>
+                                                <th><label>Customer Code</label>  </th>
+                                                <th><label>Member Percentage Utilization</label>  </th>
+                                                <th><label>Scheme Util Index</label>   </th>
+                                                <th><label>Ip Alert Email</label>   </th>
+                                                <th><label>Full Member Util</label>  </th>
+                                                <th><label>Full Member Util Shared</label>  </th>
+                                                <th><label>Full Member Util Email</label>   </th>                                               
+                                                <th><label>Split Report In Multiple Sheets</label> </th>
+                                                <th><label>Percent Report Frequency</label>  </th>
+                                                <th><label>Include Category Discription</label>  </th>
+                                                <th><label>Include Util Summary</label>  </th>                                               
                                             </tr>
                                         </thead>
                                         <tbody>
                                         @foreach (var item in Model) {
                                             <tr>
+                                                <td> @Html.ActionLink("Edit", "EditCstAlertSetting", new {  id =item.id  }) </td>
                                                 <td style="display:none"> @Html.DisplayFor(modelItem => item.id)</td>
                                                 <td> @Html.DisplayFor(modelItem => item.customer_id) </td>
                                                 <td> @Html.DisplayFor(modelItem => item.customer_name) </td>                                               
                                                 <td> @Html.DisplayFor(modelItem => item.percentage_alert) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.email_address) </td>
+                                                <td style="width: 200px!important;">
+                                                    <textarea readonly class="noborder form-control">
+                                                        @Html.DisplayFor(modelItem => item.email_address)
+                                                    </textarea>
+                                                </td>
                                                 <td> @Html.DisplayFor(modelItem => item.pol_id) </td>
                                                 <td> @Html.DisplayFor(modelItem => item.pool_number)</td>
                                                 <td> @Html.DisplayFor(modelItem => item.country_code) </td>
@@ -63,31 +64,156 @@
                                                     @if(item.inpatient_alert == 1)
                                                     {
                                                         <div class="custom-control custom-checkbox">
-                                                            <input  type="checkbox" class="custom-control-input" checked="checked" />
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
                                                         </div>
                                                     }
                                                     else
                                                     {
                                                       <div class="custom-control custom-checkbox">
-                                                        <input  type="checkbox" class="custom-control-input" />
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
                                                       </div>
                                                     }                                                    
                                                 </td>
-                                                <td> @Html.DisplayFor(modelItem => item.inpatient_weekly_alert) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.customer_code) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.member_perc_util) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.scheme_util_index) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.ip_alert_email) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.full_member_util) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.full_member_util_shared) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.full_member_util_email) </td>                                              
-                                                <td> @Html.DisplayFor(modelItem => item.split_report_into_multiple_sheets)</td>
-                                                <td> @Html.DisplayFor(modelItem => item.perc_report_frequency) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.include_cat_desc) </td>
-                                                <td> @Html.DisplayFor(modelItem => item.include_util_summary) </td>
-                                                <td>
-                                                    @Html.ActionLink("Edit", "EditCstAlertSetting", new {  id =item.id  }) 
+                                                <td> 
+                                                    @if(item.inpatient_weekly_alert==1)
+                                                     {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    }  
                                                 </td>
+                                                <td> @Html.DisplayFor(modelItem => item.customer_code) </td>
+                                                <td> 
+                                                    @if(item.member_perc_util ==1) 
+                                                     {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    } 
+                                                </td>
+                                                <td>                                                   
+                                                    @if (item.scheme_util_index == 1)
+                                                    {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    }      
+                                                </td>
+                                                <td> 
+                                                    <input readonly class="noborder form-control" type="text" value="@Html.DisplayFor(modelItem => item.ip_alert_email)">
+                                                </td>
+                                                <td>                                                     
+                                                    @if (item.full_member_util == 1)
+                                                    {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    }  
+                                                </td>
+                                                <td>                                                    
+                                                    @if (item.full_member_util_shared == 1)
+                                                     {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    }  
+                                                </td>
+
+                                                <td>
+                                                   <textarea readonly class="noborder form-control">
+                                                       @Html.DisplayFor(modelItem => item.full_member_util_email)
+                                                   </textarea>
+                                                </td>                                              
+                                                <td> 
+                                                    @if(item.split_report_into_multiple_sheets ==1)
+                                                     {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    }                                                
+                                                </td>
+                                                <td>                                                   
+                                                    @if (item.perc_report_frequency ==1)
+                                                    {
+                                                       <label>Weekly</label> 
+                                                    }
+                                                      @if (item.perc_report_frequency ==2)
+                                                    {
+                                                       <label>Monthly</label> 
+                                                    }
+                                                      @if (item.perc_report_frequency ==3)
+                                                    {
+                                                       <label>quarterly</label> 
+                                                    }
+                                                      @if (item.perc_report_frequency ==4)
+                                                    {
+                                                       <label>Halfyear</label> 
+                                                    }
+                                                </td>
+                                                <td> 
+                                                    @if(item.include_cat_desc == 1)
+                                                    {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    } 
+                                                </td>
+                                                <td> 
+                                                    @if(item.include_util_summary ==1)
+                                                    {
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input  type="checkbox" class="custom-control-input" checked="checked" disabled />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input  type="checkbox" class="custom-control-input" disabled />
+                                                      </div>
+                                                    } 
+                                                </td>                                               
                                             </tr>
                                            }       
                                         </tbody>

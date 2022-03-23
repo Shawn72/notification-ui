@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using NotificationUI.EmailService;
 using NotificationUI.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace NotificationUI.Controllers
@@ -68,21 +69,26 @@ namespace NotificationUI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginModel user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
+                    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
 
-                    HttpContext.Session.SetString(SessionIDName, user.Email);
+                    if (result.Succeeded)
+                    {
+
+                        HttpContext.Session.SetString(SessionIDName, user.Email);
 
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                   // ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+
                 }
-
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-
+            }catch(Exception ex ) {
+            throw new Exception(ex.Message);
             }
             return View(user);
         }

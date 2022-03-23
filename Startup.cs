@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotificationUI.EmailService;
 using NotificationUI.Models;
+using StackExchange.Redis;
 using System;
 
 namespace NotificationUI
@@ -27,8 +29,8 @@ namespace NotificationUI
             services.AddDbContext<AppDBContext>(c => c.UseSqlServer(connectionString));
 
             services.AddIdentity<UserModel, IdentityRole>().AddEntityFrameworkStores<AppDBContext>().AddDefaultTokenProviders();
-            services.Configure<DataProtectionTokenProviderOptions>(opt =>
-             opt.TokenLifespan = TimeSpan.FromHours(2));
+            //services.Configure<DataProtectionTokenProviderOptions>(opt =>
+            // opt.TokenLifespan = TimeSpan.FromHours(2));
 
             var emailConfig = Configuration
             .GetSection("EmailConfiguration")
@@ -52,7 +54,7 @@ namespace NotificationUI
                 options.Cookie.Name = "_aspnetCoreSession";
                 options.IdleTimeout = TimeSpan.FromMinutes(5);//You can set Time   
                 options.Cookie.IsEssential = true;
-            });
+            });           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

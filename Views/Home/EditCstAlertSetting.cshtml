@@ -1,8 +1,9 @@
-﻿@model IEnumerable<NotificationUI.Models.CustomerAlertSetting>
+﻿@model NotificationUI.Models.CustomerAlertSetting;
 
 @{
     ViewData["Title"] = "EditCstAlertSetting";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+    string[] spt = { };
 }
 
 <div class="portlet light portlet-fit portlet-datatable bordered">
@@ -14,126 +15,245 @@
     </div>
 </div>
      
-<div class="portlet light portlet-fit portlet-datatable bordered">
-    <div class="portlet-title">
-        <div class="caption">
+<div class="portlet light portlet-fit portlet-datatable bordered">  
+     
+    <div class="portlet-body">
+          <div class="caption">
             <i class="icon-settings font-green"></i>
             <span class="caption-subject font-green sbold uppercase">EDIT CUSTOMER ALERT SETTING</span>
         </div>
-    </div>
-    <br />
-     
-    <div class="portlet-body">
+        <br />
         <div class="form-body">  
             <div class="table-container vert">  
-                <span id="feedbackMsg" style="display: none"></span><br /> 
-               @foreach (var item in Model) {
+                <span id="feedbackMsg" style="display: none"></span><br />               
                 <form class="form_edit_cst_alert_setting">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
                             <label class="control-label">ID</label>
-                            <input name="id" value="@item.id" class="form-control" readonly />
+                            <input id="id" name="id" value="@Model.id" class="form-control" readonly />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Customer ID</label>
-                            <input namer="customer_id" class="form-control" value="@item.customer_id" readonly />
+                            <input  id="customer_id" name="customer_id" class="form-control" value="@Model.customer_id" readonly />
                         </div>
                         <div class="form-group">
                             <label  class="control-label">Customer Name</label>
-                            <input name="customer_name" class="form-control" value="@item.customer_name" />
+                            <input  id="customer_name" name="customer_name" class="form-control" value="@Model.customer_name" />
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Data Source</label>
-                            <input name="data_source" class="form-control" readonly value="@item.data_source" />
-                        </div>
+                        
                         <div class="form-group">
                             <label  class="control-label">Percentage Alert</label>
-                            <input name="percentage_alert" class="form-control numericsonly" value="@item.percentage_alert" />
+                            <input id="percentage_alert" name="percentage_alert" class="form-control numericsonly" value="@Model.percentage_alert" />
                         </div>
+
                         <div class="form-group">
-                            <label class="control-label">Email Address</label>
-                             <textarea class="form-control floating" name="email_address" rows="5" cols="50" type="text" asp-for=@item.email_address >@item.email_address</textarea>
+                            <label>If you'd like to add an email, do it below here, if not, just ignore</label>
+                            <label  class="control-label">Add Email to List</label>
+                            <input type="text" id="add_email_list" class="form-control" placeholder ="add email to list" />
+                             <br />
+                            <button type="submit" class="btn btn-primary pull-right btnAddEmailtoList" >Add Email </button>                          
                         </div>
+
                         <div class="form-group">
-                            <label  class="control-label"> Pol Id</label>
-                            <input id="txtPolId" name="pol_id" class="form-control" value="@item.pol_id" readonly />
-                        </div>    
-                          <div class="form-group">
-                            <label class="control-label">Pool Number</label>
-                            <input id="poolNo" name="pool_number" class="form-control" value="@item.pool_number" readonly />
+                            <label class="control-label">Email Address</label>    
+                            <select id="emAddress" name="email_address" class="form-control" multiple="multiple"  size="8" asp-items="@Model.Email_Lists"> </select>
+                             <br />
+                            <button type="submit" class="btn btn-primary pull-right btnEditEmailLst" >Edit Email </button> 
+                        </div>
+
+                         <div class="form-group nodisplay" id="editEmaildiv">
+                            <label  class="control-label">Edit Email List</label>
+                            <input type="text" id="edit_email_list" class="form-control" placeholder ="edit email on list" />
+                            <br />
+                            <button type="submit" class="btn btn-primary pull-right btnAddEditedEmailtoList" >Edit </button>                          
+                        </div>
+                          <br />
+
+                        <div class="form-group">
+                            <label  class="control-label"> Policy Id</label>
+                            <input id="txtPolId" name="pol_id" class="form-control" value="@Model.pol_id" />
                         </div>
                                                             
                     </div>
                     <div class="col-md-4">
-                       
-                         <div class="form-group">
-                            <label  class="control-label">Country Code</label>
-                            <input name="country_code" class="form-control" value="@item.country_code"/>
-                        </div>
                         <div class="form-group">
-                            <label  class="control-label"> Inpatient Alert</label>
-                            <input id="inPAlert" name="inpatient_alert" class="form-control numericsonly" value="@item.inpatient_alert" />
+                            <label class="control-label">Pool Number</label>
+                            <input id="poolNo" name="pool_number" class="form-control" value="@Model.pool_number" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="control-label">Country Code</label>
+                            <input  id="country_code" name="country_code" class="form-control" value="@Model.country_code" readonly/>
+                        </div>                       
+                        <div class="form-group">
+                            <label  class="control-label"> Inpatient Alert</label>                           
+                             <select  id="inPAlert" name="inpatient_alert" class="form-control">
+                                    <option value="0" disabled selected > --- select --- </option>
+                                    @if (Model.inpatient_alert == 1)
+                                    {
+                                        <option value="1" selected > True </option>
+                                        <option value="0" > False </option> 
+                                    }
+                                    else
+                                    {
+                                        <option value="0" selected > False </option> 
+                                        <option value="1" > True </option>
+                                    }
+                            </select> 
+                        
                         </div> 
                         <div class="form-group">
                             <label  class="control-label">Inpatient Weekly Alert</label>
-                            <input name="inpatient_weekly_alert" class="form-control numericsonly" value="@item.inpatient_weekly_alert" />
+                            <select  id="inpatient_weekly_alert" name="inpatient_weekly_alert" class="form-control">
+                                 <option value="0" disabled selected > --- select --- </option>
+                                    @if (Model.inpatient_weekly_alert == 1)
+                                    {
+                                        <option value="1" selected > True </option>
+                                        <option value="0" > False </option> 
+                                    }
+                                    else
+                                    {
+                                        <option value="0" selected > False </option> 
+                                        <option value="1" > True </option>
+                                    }
+                           </select>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Customer Code</label>
-                            <input id="cstCode" name="customer_code" class="form-control" value="@item.customer_code" />
+                            <input id="cstCode" name="customer_code" class="form-control" value="@Model.customer_code" />
                         </div>
                             <div class="form-group">
-                            <label  class="control-label">Member Perc Util</label>
-                            <input name="member_perc_util" class="form-control numericsonly" value="@item.member_perc_util" />
+                            <label  class="control-label">Member Percentage Utilization</label>
+                            <select id="member_perc_util" name="member_perc_util" class="form-control">
+                                <option value="0" disabled selected > --- select --- </option>
+                                @if (Model.member_perc_util == 1)
+                                {
+                                    <option value="1" selected > True </option>
+                                    <option value="0" > False </option> 
+                                }
+                                else
+                                {
+                                    <option value="0" selected > False </option> 
+                                    <option value="1" > True </option>
+                                }
+                            </select>
+                                    
                         </div> 
                          <div class="form-group">
-                            <label class="control-label">Scheme Util Index</label>
-                            <input name="scheme_util_index" class="form-control numericsonly" value="@item.scheme_util_index" />
+                            <label class="control-label">Scheme Utilization Index</label>                           
+                             <select id="scheme_util_index" name="scheme_util_index" class="form-control">
+                                    <option value="0" disabled selected > --- select --- </option>
+                                    @if (Model.scheme_util_index == 1)
+                                    {
+                                        <option value="1" selected > True </option>
+                                        <option value="0" > False </option> 
+                                    }
+                                    else
+                                    {
+                                        <option value="0" selected > False </option> 
+                                        <option value="1" > True </option>
+                                    }
+                              </select>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">Ip Alert Email</label>
-                            <input id="txtIpAlertEmail" name="ip_alert_email" class="form-control"  value="@item.ip_alert_email"/>
+                            <input id="txtIpAlertEmail" name="ip_alert_email" class="form-control"  value="@Model.ip_alert_email"/>
                         </div>
                         <div class="form-group">
-                            <label  class="control-label"> Full Member Util</label>
-                            <input id="txtfullmbralert" name="full_member_util" class="form-control" value="@item.full_member_util" />
+                            <label  class="control-label"> Full Member Utilization</label>
+                            <select id="full_member_util" name="full_member_util" class="form-control">
+                                <option value="0" disabled selected > --- select --- </option>
+                                @if (Model.full_member_util == 1)
+                                {
+                                    <option value="1" selected > True </option>
+                                    <option value="0" > False </option> 
+                                }
+                                else
+                                {
+                                    <option value="0" selected > False </option> 
+                                    <option value="1" > True </option>
+                                }
+                            </select>                         
                         </div>
-                       
-                    </div>
-                    <div class="col-md-4">   
-                         <div class="form-group">
-                            <label  class="control-label">Full Member Util Shared</label>
-                            <input name="full_member_util_shared" class="form-control" value="@item.full_member_util_shared" />
-                        </div>
+
                         <div class="form-group">
-                            <label  class="control-label">Full Member Util Email</label>
-                            <input id="fullMbrUtilEml" name="full_member_util_email" class="form-control" value="@item.full_member_util_email" />
+                            <label  class="control-label">Full Member Utilization Shared</label>                           
+                             <select id="full_member_util_shared" name="full_member_util_shared" class="form-control">
+                                    <option value="0" disabled selected > --- select --- </option>
+                                    @if (Model.full_member_util_shared == 1)
+                                    {
+                                        <option value="1" selected > True </option>
+                                        <option value="0" > False </option> 
+                                    }
+                                    else
+                                    {
+                                        <option value="0" selected > False </option> 
+                                        <option value="1" > True </option>
+                                    }
+                            </select>   
                         </div>                       
+                    </div>
+                    <div class="col-md-4">  
+                         
                         <div class="form-group">
-                            <label  class="control-label">Scheme Expiry Alert Email</label>
-                            <input id="schmXpAltEmail" name="scheme_expiry_alert_email" class="form-control" value="@item.scheme_expiry_alert_email" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Age Cut off alert</label>
-                            <input id="ageCutoffAlt" name="age_cut_off_alert" class="form-control numericsonly" value="@item.age_cut_off_alert"/>
-                        </div>
+                            <label  class="control-label">Full Member Utilization Email</label>
+                            <input id="fullMbrUtilEml" name="full_member_util_email" class="form-control" value="@Model.full_member_util_email" />
+                        </div> 
                      
                         <div class="form-group">
                             <label class="control-label">Split Report To Mult Sheets</label>
-                            <input id="splitToMultiSs" name="split_report_into_multiple_sheets" class="form-control numericsonly" value="@item.split_report_into_multiple_sheets" />                           
+                            <select  id="splitToMultiSs" name="split_report_into_multiple_sheets" class="form-control">
+                                <option value="0" disabled selected > --- select --- </option>
+                                @if (Model.split_report_into_multiple_sheets == 1)
+                                {
+                                    <option value="1" selected > True </option>
+                                    <option value="0" > False </option> 
+                                }
+                                else
+                                {
+                                    <option value="0" selected > False </option> 
+                                    <option value="1" > True </option>
+                                }
+                              </select>                       
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Percentage Report Frequency</label>
+                            <input id="rprtFreq" name="perc_report_frequency" class="form-control numericsonly" value="@Model.perc_report_frequency" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Perc report Frequency</label>
-                            <input id="rprtFreq" name="perc_report_frequency" class="form-control numericsonly" value="@item.perc_report_frequency" />
+                             <label class="control-label">Include Category Description</label>                         
+                             <select id="inclCatDescr" name="include_cat_desc" class="form-control">
+                                <option value="0" disabled selected> --- select --- </option>
+                                @if (Model.include_cat_desc == 1)
+                                {
+                                    <option value="1" selected > True </option>
+                                    <option value="0" > False </option> 
+                                }
+                                else
+                                {
+                                    <option value="0" selected > False </option> 
+                                    <option value="1" > True </option>
+                                }
+                            </select>  
+
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Include Cat Description</label>
-                            <input id="inclCatDescr" name="include_cat_desc" class="form-control" value="@item.include_cat_desc" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Include Util summary</label>
-                            <input id="inclUtilSummry" name="include_util_summary" class="form-control" value="@item.include_util_summary" />
+                            <label class="control-label">Include Utilization Summary</label>                           
+                            <select  id="inclUtilSummry" name="include_util_summary"  class="form-control">
+                                <option value="0" disabled selected > --- select --- </option>
+                                @if (Model.include_util_summary == 1)
+                                {
+                                    <option value="1" selected > True </option>
+                                    <option value="0" > False </option> 
+                                }
+                                else
+                                {
+                                    <option value="0" selected > False </option> 
+                                    <option value="1" > True </option>
+                                }
+                            </select> 
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Submit Edit" class="btn btn-primary pull-left btnEditAlertSetting" />
@@ -141,7 +261,7 @@
                         </div>
                     </div>
                 </form>
-                }
+                
                 <br />   <br />   <br />   <br />
             </div>
         </div>
